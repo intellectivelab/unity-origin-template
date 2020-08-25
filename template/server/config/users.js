@@ -1,4 +1,20 @@
 module.exports = {
+    "usersLookup": {
+        "id": "usersLookup",
+        "type": "SearchTemplate",
+        "searchTemplateId": "usersSearch0",
+        "valueField": "fullName",
+        "_links": {
+            "self": {
+                "href": "/api/config/components/usersLookup",
+                "type": "application/json"
+            },
+            "config": {
+                "href": "/api/config/components/usersSearchForLookup",
+                "type": "application/json"
+            }
+        }
+    },
     "usersSearch": [
         {
             "id": "usersSearch0",
@@ -155,6 +171,28 @@ module.exports = {
             },
             "list": {
                 "href": "/api/users/list",
+                "type": "application/json"
+            },
+        }
+    },
+    "usersSearchForLookup": {
+        "id": "usersSearchForLookup",
+        "title": "Users Search for Lookup",
+        "_links": {
+            "self": {
+                "href": "/api/config/components/usersSearchForLookup",
+                "type": "application/json"
+            },
+            "criteria": {
+                "href": "/api/config/components/usersSearchCriteriaForLookup",
+                "type": "application/json"
+            },
+            "grid": {
+                "href": "/api/config/components/users",
+                "type": "application/json"
+            },
+            "query": {
+                "href": "/api/users/query",
                 "type": "application/json"
             },
         }
@@ -346,6 +384,17 @@ module.exports = {
         "title": "Search Criteria",
         "hidden": false,
         "fields": [
+            {
+                "name": "fullName",
+                "label": "Name",
+                "dataType": "textfield",
+                "lookupId": "usersLookup",
+                "_links": {
+                    "lookup": {
+                        "href": '/api/config/components/usersLookup'
+                    }
+                }
+            },
             {
                 "name": "firstName",
                 "dataType": "textfield",
@@ -872,11 +921,72 @@ module.exports = {
                         "_links": {
                             "selector": {
                                 "href": '/api/selectors/stateCode'
-                            },
+                            }
                         }
                     },
                 ]
             },
+        ],
+    },
+    "usersSearchCriteriaForLookup": {
+        "id": "usersSearchCriteriaForLookup",
+        "title": "Search Criteria",
+        "hidden": false,
+        "sections": [
+            {
+                "title": "Industry & Job",
+                "subtitle": "Details",
+                "fields": [
+                    {
+                        name: 'jobType',
+                        dataType: 'fieldstats',
+                        label: 'Job Type',
+                        ui: 'checkbox',
+                        "multiValue": true,
+                        tooltip: "Breakdown by job type field",
+                        "facets": [
+                            {
+                                id: "jobtypes",
+                                type: "TERMS",
+                                field: "jobType",
+                                label: 'Job Type',
+                                dataType: 'string',
+                                limit: 7,
+                                minCount: 1
+                            }
+                        ],
+                        "_links": {
+                            "facetItems": {
+                                "href": '/api/users/facets/select'
+                            }
+                        }
+                    },
+                    {
+                        name: 'jobArea',
+                        dataType: 'fieldstats',
+                        label: 'Industry',
+                        ui: 'toggle',
+                        "multiValue": true,
+                        tooltip: "Breakdown by industry",
+                        "facets": [
+                            {
+                                id: "jobArea",
+                                type: "TERMS",
+                                field: "jobArea",
+                                label: 'Job Area',
+                                dataType: 'string',
+                                limit: 7,
+                                minCount: 1
+                            }
+                        ],
+                        "_links": {
+                            "facetItems": {
+                                "href": '/api/users/facets/select'
+                            }
+                        }
+                    }
+                ]
+            }
         ],
     },
     "usersView0": {
@@ -988,29 +1098,29 @@ module.exports = {
         }
     },
     "usersViewFieldset0": {
-    	"header": [
-		    {
-			    "name": "fullName",
-			    "label": "Name",
-			    "dataType": "string",
-		    },
-		    {
-			    "name": "gender",
-			    "label": "Gender",
-		    },
-		    {
-			    "name": "dob",
-			    "label": "Date of Birth",
-			    "dataType": "date",
-		    },
-		    {
-			    "name": "salary",
-			    "label": "Salary",
-			    "dataType": "number",
-			    "format": "$+1,000.00",
-		    },
-	    ],
-	    "fields": [
+        "header": [
+            {
+                "name": "fullName",
+                "label": "Name",
+                "dataType": "string",
+            },
+            {
+                "name": "gender",
+                "label": "Gender",
+            },
+            {
+                "name": "dob",
+                "label": "Date of Birth",
+                "dataType": "date",
+            },
+            {
+                "name": "salary",
+                "label": "Salary",
+                "dataType": "number",
+                "format": "$+1,000.00",
+            },
+        ],
+        "fields": [
             {
                 "name": "FolderPath",
                 "label": "Folder",
@@ -1025,37 +1135,43 @@ module.exports = {
                 }
             },
 
-		    {
-			    "name": "fullName",
-			    "label": "Name",
-			    "dataType": "string",
-			    "width": 200,
-			    "required": true,
-			    "favorite": true,
-			    "tooltip": ""
-		    },
-		    {
-			    "name": "gender",
-			    "label": "Gender",
-			    "dataType": "choices",
-			    "options": [{"name": "Male", "value": "Male"}, {"name": "Female", "value": "Female"}],
-			    "required": true,
-			    "favorite": true,
-			    "width": 100,
-			    "tooltip": ""
-		    },
-		    {
-			    "name": "dob",
-			    "label": "Date of Birth",
-			    "dataType": "date",
-			    "required": true,
-			    "favorite": true,
-			    "minValue": "1900/01/01",
-			    "maxValue": "2050/06/01",
-			    "multiValue": true,
-			    "width": 100,
-			    "tooltip": ""
-		    },
+            {
+                "name": "fullName",
+                "label": "Name",
+                "dataType": "string",
+                "width": 200,
+                "required": true,
+                "favorite": true,
+                "lookupId": "usersLookup",
+                "tooltip": "",
+                "_links": {
+                    "lookup": {
+                        "href": '/api/config/components/usersLookup'
+                    }
+                }
+            },
+            {
+                "name": "gender",
+                "label": "Gender",
+                "dataType": "choices",
+                "options": [{"name": "Male", "value": "Male"}, {"name": "Female", "value": "Female"}],
+                "required": true,
+                "favorite": true,
+                "width": 100,
+                "tooltip": ""
+            },
+            {
+                "name": "dob",
+                "label": "Date of Birth",
+                "dataType": "date",
+                "required": true,
+                "favorite": true,
+                "minValue": "1900/01/01",
+                "maxValue": "2050/06/01",
+                "multiValue": true,
+                "width": 100,
+                "tooltip": ""
+            },
             {
                 "name": "age",
                 "label": "Age",
@@ -1073,41 +1189,41 @@ module.exports = {
                 "dataType": "boolean",
                 "tooltip": ""
             }
-	    ],
+        ],
         "sections": [
             {
-		        "title": "Company",
-		        "fields": [
-			        {
-				        "name": "companyName",
-				        "label": "Company",
-				        "dataType": "string",
-				        "width": 200,
-				        "tooltip": ""
-			        },
-			        {
-				        "name": "jobType",
-				        "label": "Job",
-				        "dataType": "string",
-				        "width": 200,
-				        "tooltip": ""
-			        },
-			        {
-				        "name": "salary",
-				        "label": "Salary",
-				        "dataType": "number",
-				        "favorite": true,
-				        "format": "$+1,000.00",
-			        },
+                "title": "Company",
+                "fields": [
+                    {
+                        "name": "companyName",
+                        "label": "Company",
+                        "dataType": "string",
+                        "width": 200,
+                        "tooltip": ""
+                    },
+                    {
+                        "name": "jobType",
+                        "label": "Job",
+                        "dataType": "string",
+                        "width": 200,
+                        "tooltip": ""
+                    },
+                    {
+                        "name": "salary",
+                        "label": "Salary",
+                        "dataType": "number",
+                        "favorite": true,
+                        "format": "$+1,000.00",
+                    },
 
-			        {
-				        "name": "jobArea",
-				        "label": "Industry",
-				        "dataType": "string",
+                    {
+                        "name": "jobArea",
+                        "label": "Industry",
+                        "dataType": "string",
                         "ui": "rtftext",
                         "fullWidth": true,
-				        "tooltip": ""
-			        },
+                        "tooltip": ""
+                    },
 
                     {
                         "name": "jobTitle",
@@ -1118,9 +1234,9 @@ module.exports = {
                         "required": true,
                         "tooltip": "Enter Job Title"
                     },
-		        ],
-	        },
-	        {
+                ],
+            },
+            {
                 "title": "Address",
                 "fields": [
                     {
@@ -1251,7 +1367,7 @@ module.exports = {
                                 "value": "3"
                             }
 
-                            ]
+                        ]
                     },
                 ]
             },
@@ -1271,9 +1387,9 @@ module.exports = {
                         "name": "part5Title.1",
                         "label": '1. Does the proposed activity include engineered structures such as bridges, culverts, stormwater management systems, detention basins, and/or flood & erosion control structures?',
                         "dataType": "choices",
-/*
-                        "inline": true,
-*/
+                        /*
+                                                "inline": true,
+                        */
                         "fullWidth": true,
                         "ui": "rtflabel",
                         "options": [
@@ -1385,7 +1501,7 @@ module.exports = {
                         "label": "Id",
                         "dataType": "string",
                         "width": 100,
-	                    "hidden": true,
+                        "hidden": true,
                         "tooltip": ""
                     },
                 ]
@@ -1399,29 +1515,29 @@ module.exports = {
         }
     },
     "usersViewFieldset1": {
-	    "header": [
-		    {
-			    "name": "fullName",
-			    "label": "Name",
-			    "dataType": "string",
-		    },
-		    {
-			    "name": "gender",
-			    "label": "Gender",
-			    "dataType": "string",
-		    },
-		    {
-			    "name": "dob",
-			    "label": "Date of Birth",
-			    "dataType": "date",
-		    },
-		    {
-			    "name": "salary",
-			    "label": "Salary",
-			    "dataType": "number",
-			    "format": "$+1,000.00",
-		    },
-	    ],
+        "header": [
+            {
+                "name": "fullName",
+                "label": "Name",
+                "dataType": "string",
+            },
+            {
+                "name": "gender",
+                "label": "Gender",
+                "dataType": "string",
+            },
+            {
+                "name": "dob",
+                "label": "Date of Birth",
+                "dataType": "date",
+            },
+            {
+                "name": "salary",
+                "label": "Salary",
+                "dataType": "number",
+                "format": "$+1,000.00",
+            },
+        ],
         "fields": [
             {
                 "name": "fullName",
@@ -1472,8 +1588,8 @@ module.exports = {
                 "favorite": false,
                 "required": false,
                 "allowedExtensions": null,
-		"multiValue": false,
-		"fullWidth": true,
+                "multiValue": false,
+                "fullWidth": true,
                 "tooltip": "Please attach your application form (if available)"
             },
 
@@ -1484,20 +1600,20 @@ module.exports = {
                 "favorite": false,
                 "required": false,
                 "multiValue": true,
-		"fullWidth": true,
+                "fullWidth": true,
                 "tooltip": "Please attach your application form (if available)"
             },
 
-	        {
-		        "name": "gender",
-		        "label": "Gender",
-		        "dataType": "select",
-		        "options": [{"name": "Male", "value": "Male"}, {"name": "Female", "value": "Female"}],
-		        "required": true,
-		        "favorite": true,
-		        "width": 100,
-		        "tooltip": ""
-	        },
+            {
+                "name": "gender",
+                "label": "Gender",
+                "dataType": "select",
+                "options": [{"name": "Male", "value": "Male"}, {"name": "Female", "value": "Female"}],
+                "required": true,
+                "favorite": true,
+                "width": 100,
+                "tooltip": ""
+            },
             {
                 "name": "dob",
                 "label": "Date of Birth",
@@ -1611,10 +1727,10 @@ module.exports = {
                 "name": "fileDA",
                 "label": "Files DA",
                 "dataType": "file",
-		"variant": "droparea",
+                "variant": "droparea",
                 "favorite": false,
                 "required": false,
-		"multiValue": false,
+                "multiValue": false,
                 "allowedExtensions": ["png", "jpg", "bmp"],
                 "maximumSize": 10000000, // 10 Mb
                 "tooltip": "Please attach your application form (if available)"
@@ -1623,14 +1739,14 @@ module.exports = {
                 "name": "fileMultiDA",
                 "label": "Files Mutli DA",
                 "dataType": "file",
-		"variant": "droparea",
+                "variant": "droparea",
                 "favorite": false,
                 "required": false,
-		"multiValue": true,
+                "multiValue": true,
                 "limit": 3,
                 "allowedExtensions": ["png", "jpg", "bmp"],
                 "maximumSize": 10000000, // 10 Mb
-		"fullWidth": true,
+                "fullWidth": true,
                 "tooltip": "Please attach your application form (if available)"
             },
 
