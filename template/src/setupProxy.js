@@ -1,12 +1,17 @@
 const {createProxyMiddleware} = require('http-proxy-middleware');
 
 module.exports = function (app) {
-	const filter = (pathname) => pathname.match('^/api') || pathname.match('^(/.*)?/public/api');
+	const apiFilter  = (pathname) => pathname.match('^/api') || pathname.match('^(/.*)?/public/api');
+	const notificationsFilter = (pathname) => pathname.match('^/notifications');
 
 	// default proxy setup to the mock(dev) server
-	app.use(createProxyMiddleware(filter, {
+	app.use(createProxyMiddleware(apiFilter, {
 		target: 'http://localhost:4000',
 		pathRewrite: {'^/api/1.0.0': '/api'}
+	}));
+
+	app.use(createProxyMiddleware(notificationsFilter, {
+		target: 'http://localhost:4000'
 	}));
 
 	/**

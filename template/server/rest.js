@@ -1000,4 +1000,25 @@ module.exports = function (app) {
 		}, 1000);
 	});
 
+	app.get('/notifications', (req, res) => {
+		setTimeout(() => {
+			res.send([
+				{
+					id : 83,
+					locale : "en_US",
+					severity : "info",
+					subject : "Big text with mark-up",
+					body : "This is the body with rich text: &lt;b style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;bold text &lt;/b&gt;regular text &lt;u style=&quot;font-size: 12px;&quot;&gt;underlined &lt;/u&gt;regular text&lt;div style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;new line&lt;/div&gt;&lt;div style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;This is the hyperlink: &lt;a href=&quot;https://www.intellective.com/&quot;&gt;https://www.intellective.com/&lt;/a&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;new line&lt;/div&gt;&lt;div style=&quot;font-size: 12px;&quot;&gt;&lt;font color=&quot;#ff0000&quot;&gt;text in red&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;font color=&quot;#ff0000&quot; style=&quot;&quot; size=&quot;3&quot;&gt;bigger text in red&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 12px;&quot;&gt;&lt;font color=&quot;#ff0000&quot;&gt;one more text in red&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;new line&lt;/div&gt;&lt;div style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;new line&lt;/div&gt;"
+				},
+				{
+					id : 85,
+					locale : "en_US",
+					severity : "exclamation",
+					subject : "Tiny text",
+					body : "Text. Just text"
+				}
+			]);
+		}, respTime());
+	});
+
 };
