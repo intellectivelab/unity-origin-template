@@ -1,0 +1,48 @@
+{
+  "name": "@intellective/cra-template-unity-origin",
+  "main": "template.json",
+  "version": "2020.1.1-alpha-16",
+  "description": "The base template for Unity React apps",
+  "author": {
+    "name": "Intellective",
+    "url": "www.intellective.com"
+  },
+  "license": "Intellective",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/intellectivelab/unity-cra-template"
+  },
+  "publishConfig": {
+    "registry": "http://18.236.47.14:4873"
+  },
+  "files": [
+    "template",
+    "template.json"
+  ],
+  "scripts": {
+    "server": "node template/server"
+  },
+  "devDependencies": {
+    "@intellective/core": "latest",
+    "@material-ui/core": "latest",
+    "@material-ui/icons": "latest",
+    "@material-ui/styles": "latest",
+    "@mdi/js": "latest",
+    "ramda": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "body-parser": "latest",
+    "date-fns": "latest",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-jest": "^23.13.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.20.0",
+    "express": "latest",
+    "faker": "latest",
+    "file-loader": "latest",
+    "http-proxy-middleware": "latest",
+    "node-rsql-parser": "latest",
+    "sqlite3": "latest",
+    "uuid": "latest"
+  }
+}
