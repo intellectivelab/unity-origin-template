@@ -29,13 +29,11 @@ const TestCondition = (unit) => {
 		if (unit.includes('!==')) {
 			const [name, value] = unit.split('!==');
 
-			return (row) => row[name] && !row[name].includes(value.replace(/["']/g, ""));
+			return (row) => row[name] && !String(row[name]).includes(value.replace(/["']/g, ""));
 		} else if (unit.includes('==')) {
 			const [name, value] = unit.split('==');
 
-			return (row) => {
-				return row[name] && (row[name].includes ? row[name].includes(value.replace(/["']/g, "")) : row[name] === value);
-			};
+			return (row) => row[name] && String(row[name]).includes(value.replace(/["']/g, ""));
 		} else if (unit.includes('=CONTAINS=')) {
 			const [name, value] = unit.split('=CONTAINS=');
 
