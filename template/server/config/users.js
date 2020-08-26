@@ -988,29 +988,29 @@ module.exports = {
         }
     },
     "usersViewFieldset0": {
-    	"header": [
-		    {
-			    "name": "fullName",
-			    "label": "Name",
-			    "dataType": "string",
-		    },
-		    {
-			    "name": "gender",
-			    "label": "Gender",
-		    },
-		    {
-			    "name": "dob",
-			    "label": "Date of Birth",
-			    "dataType": "date",
-		    },
-		    {
-			    "name": "salary",
-			    "label": "Salary",
-			    "dataType": "number",
-			    "format": "$+1,000.00",
-		    },
-	    ],
-	    "fields": [
+        "header": [
+            {
+                "name": "fullName",
+                "label": "Name",
+                "dataType": "string",
+            },
+            {
+                "name": "gender",
+                "label": "Gender",
+            },
+            {
+                "name": "dob",
+                "label": "Date of Birth",
+                "dataType": "date",
+            },
+            {
+                "name": "salary",
+                "label": "Salary",
+                "dataType": "number",
+                "format": "$+1,000.00",
+            },
+        ],
+        "fields": [
             {
                 "name": "FolderPath",
                 "label": "Folder",
@@ -1025,37 +1025,37 @@ module.exports = {
                 }
             },
 
-		    {
-			    "name": "fullName",
-			    "label": "Name",
-			    "dataType": "string",
-			    "width": 200,
-			    "required": true,
-			    "favorite": true,
-			    "tooltip": ""
-		    },
-		    {
-			    "name": "gender",
-			    "label": "Gender",
-			    "dataType": "choices",
-			    "options": [{"name": "Male", "value": "Male"}, {"name": "Female", "value": "Female"}],
-			    "required": true,
-			    "favorite": true,
-			    "width": 100,
-			    "tooltip": ""
-		    },
-		    {
-			    "name": "dob",
-			    "label": "Date of Birth",
-			    "dataType": "date",
-			    "required": true,
-			    "favorite": true,
-			    "minValue": "1900/01/01",
-			    "maxValue": "2050/06/01",
-			    "multiValue": true,
-			    "width": 100,
-			    "tooltip": ""
-		    },
+            {
+                "name": "fullName",
+                "label": "Name",
+                "dataType": "string",
+                "width": 200,
+                "required": true,
+                "favorite": true,
+                "tooltip": ""
+            },
+            {
+                "name": "gender",
+                "label": "Gender",
+                "dataType": "choices",
+                "options": [{"name": "Male", "value": "Male"}, {"name": "Female", "value": "Female"}],
+                "required": true,
+                "favorite": true,
+                "width": 100,
+                "tooltip": ""
+            },
+            {
+                "name": "dob",
+                "label": "Date of Birth",
+                "dataType": "date",
+                "required": true,
+                "favorite": true,
+                "minValue": "1900/01/01",
+                "maxValue": "2050/06/01",
+                "multiValue": true,
+                "width": 100,
+                "tooltip": ""
+            },
             {
                 "name": "age",
                 "label": "Age",
@@ -1073,41 +1073,41 @@ module.exports = {
                 "dataType": "boolean",
                 "tooltip": ""
             }
-	    ],
+        ],
         "sections": [
             {
-		        "title": "Company",
-		        "fields": [
-			        {
-				        "name": "companyName",
-				        "label": "Company",
-				        "dataType": "string",
-				        "width": 200,
-				        "tooltip": ""
-			        },
-			        {
-				        "name": "jobType",
-				        "label": "Job",
-				        "dataType": "string",
-				        "width": 200,
-				        "tooltip": ""
-			        },
-			        {
-				        "name": "salary",
-				        "label": "Salary",
-				        "dataType": "number",
-				        "favorite": true,
-				        "format": "$+1,000.00",
-			        },
+                "title": "Company",
+                "fields": [
+                    {
+                        "name": "companyName",
+                        "label": "Company",
+                        "dataType": "string",
+                        "width": 200,
+                        "tooltip": ""
+                    },
+                    {
+                        "name": "jobType",
+                        "label": "Job",
+                        "dataType": "string",
+                        "width": 200,
+                        "tooltip": ""
+                    },
+                    {
+                        "name": "salary",
+                        "label": "Salary",
+                        "dataType": "number",
+                        "favorite": true,
+                        "format": "$+1,000.00",
+                    },
 
-			        {
-				        "name": "jobArea",
-				        "label": "Industry",
-				        "dataType": "string",
+                    {
+                        "name": "jobArea",
+                        "label": "Industry",
+                        "dataType": "string",
                         "ui": "rtftext",
                         "fullWidth": true,
-				        "tooltip": ""
-			        },
+                        "tooltip": ""
+                    },
 
                     {
                         "name": "jobTitle",
@@ -1118,9 +1118,9 @@ module.exports = {
                         "required": true,
                         "tooltip": "Enter Job Title"
                     },
-		        ],
-	        },
-	        {
+                ],
+            },
+            {
                 "title": "Address",
                 "fields": [
                     {
@@ -1251,13 +1251,13 @@ module.exports = {
                                 "value": "3"
                             }
 
-                            ]
+                        ]
                     },
                 ]
             },
 
             {
-                "title": "Engineering Support Documentation andCertification",
+                "title": "Engineering Support Documentation and Certification",
                 "expanded": true,
                 "fields": [
                     {
@@ -1271,9 +1271,9 @@ module.exports = {
                         "name": "part5Title.1",
                         "label": '1. Does the proposed activity include engineered structures such as bridges, culverts, stormwater management systems, detention basins, and/or flood & erosion control structures?',
                         "dataType": "choices",
-/*
-                        "inline": true,
-*/
+                        /*
+                                                "inline": true,
+                        */
                         "fullWidth": true,
                         "ui": "rtflabel",
                         "options": [
@@ -1372,8 +1372,67 @@ module.exports = {
                         "helperText": '[{"children":[{"text":"Please make sure Item 3., above ,documents that there are no feasible, less environmentally damaging alternatives and include Attachment 18, Engineering Report Cover Sheet. Also, the municipality must forward the related Coastal Site Plan Review to LWRD. See "},{"type":"link","url":"https://portal.ct.gov/-/media/DEEP/Permits_and_Licenses/Land_Use_Permits/LWRD/LWRDinstpdf#Page=5.pdf?la=en","children":[{"text":"LWRD Application Instructions","bold":true,"color":"#004dcf"}]},{"text":" for further guidance."}]}]'
                     },
 
+                    {
+                        "name": "coastalResourceImpact",
+                        "label": 'Coastal Resource Impact Table',
+                        "dataType": "table",
+                        "multiValue": true,
+                        "fullWidth": true,
 
+                        "_links": {
+                            "fieldset": {
+                                "href": '/api/config/users/fieldsets/CoastalResourceImpactTableFieldSet'
+                            },
+                        }, //or
+/*
 
+                        "fieldset": {
+                            "fields": [
+                                {
+                                    "name": "resourceType",
+                                    "label": "Resource Type",
+                                    "dataType": "string",
+                                    "favorite": true,
+                                    "width": 200,
+                                    "required": true,
+                                    "tooltip": ""
+                                },
+                                {
+                                    "name": "permImpact",
+                                    "label": "Permanent Impact",
+                                    "dataType": "string",
+                                    "tooltip": ""
+                                },
+                                {
+                                    "name": "tempImpact",
+                                    "label": "Temporary Impact",
+                                    "dataType": "string",
+                                    "tooltip": ""
+                                },
+                                {
+                                    "name": "mitigation",
+                                    "label": "Mitigation",
+                                    "dataType": "string",
+                                    "tooltip": ""
+                                },
+
+                                {
+                                    "name": "impactDescription",
+                                    "label": "Describe Impact",
+                                    "dataType": "string",
+                                    "width": 200,
+                                    "tooltip": ""
+                                },
+                            ],
+                            "_links": {
+                                "self": {
+                                    "href": "/api/config/components/CoastalResourceImpactTableFieldSet",
+                                    "type": "application/json"
+                                }
+                            }
+                        }
+ */
+                    },
                 ]
             },
 
@@ -1385,7 +1444,7 @@ module.exports = {
                         "label": "Id",
                         "dataType": "string",
                         "width": 100,
-	                    "hidden": true,
+                        "hidden": true,
                         "tooltip": ""
                     },
                 ]
@@ -1399,29 +1458,29 @@ module.exports = {
         }
     },
     "usersViewFieldset1": {
-	    "header": [
-		    {
-			    "name": "fullName",
-			    "label": "Name",
-			    "dataType": "string",
-		    },
-		    {
-			    "name": "gender",
-			    "label": "Gender",
-			    "dataType": "string",
-		    },
-		    {
-			    "name": "dob",
-			    "label": "Date of Birth",
-			    "dataType": "date",
-		    },
-		    {
-			    "name": "salary",
-			    "label": "Salary",
-			    "dataType": "number",
-			    "format": "$+1,000.00",
-		    },
-	    ],
+        "header": [
+            {
+                "name": "fullName",
+                "label": "Name",
+                "dataType": "string",
+            },
+            {
+                "name": "gender",
+                "label": "Gender",
+                "dataType": "string",
+            },
+            {
+                "name": "dob",
+                "label": "Date of Birth",
+                "dataType": "date",
+            },
+            {
+                "name": "salary",
+                "label": "Salary",
+                "dataType": "number",
+                "format": "$+1,000.00",
+            },
+        ],
         "fields": [
             {
                 "name": "fullName",
@@ -1472,8 +1531,8 @@ module.exports = {
                 "favorite": false,
                 "required": false,
                 "allowedExtensions": null,
-		"multiValue": false,
-		"fullWidth": true,
+                "multiValue": false,
+                "fullWidth": true,
                 "tooltip": "Please attach your application form (if available)"
             },
 
@@ -1484,20 +1543,20 @@ module.exports = {
                 "favorite": false,
                 "required": false,
                 "multiValue": true,
-		"fullWidth": true,
+                "fullWidth": true,
                 "tooltip": "Please attach your application form (if available)"
             },
 
-	        {
-		        "name": "gender",
-		        "label": "Gender",
-		        "dataType": "select",
-		        "options": [{"name": "Male", "value": "Male"}, {"name": "Female", "value": "Female"}],
-		        "required": true,
-		        "favorite": true,
-		        "width": 100,
-		        "tooltip": ""
-	        },
+            {
+                "name": "gender",
+                "label": "Gender",
+                "dataType": "select",
+                "options": [{"name": "Male", "value": "Male"}, {"name": "Female", "value": "Female"}],
+                "required": true,
+                "favorite": true,
+                "width": 100,
+                "tooltip": ""
+            },
             {
                 "name": "dob",
                 "label": "Date of Birth",
@@ -1611,10 +1670,10 @@ module.exports = {
                 "name": "fileDA",
                 "label": "Files DA",
                 "dataType": "file",
-		"variant": "droparea",
+                "variant": "droparea",
                 "favorite": false,
                 "required": false,
-		"multiValue": false,
+                "multiValue": false,
                 "allowedExtensions": ["png", "jpg", "bmp"],
                 "maximumSize": 10000000, // 10 Mb
                 "tooltip": "Please attach your application form (if available)"
@@ -1623,14 +1682,14 @@ module.exports = {
                 "name": "fileMultiDA",
                 "label": "Files Mutli DA",
                 "dataType": "file",
-		"variant": "droparea",
+                "variant": "droparea",
                 "favorite": false,
                 "required": false,
-		"multiValue": true,
+                "multiValue": true,
                 "limit": 3,
                 "allowedExtensions": ["png", "jpg", "bmp"],
                 "maximumSize": 10000000, // 10 Mb
-		"fullWidth": true,
+                "fullWidth": true,
                 "tooltip": "Please attach your application form (if available)"
             },
 
@@ -1651,6 +1710,68 @@ module.exports = {
             }
         }
     },
+
+    "CoastalResourceImpactTableFieldSet": {
+
+        /*
+                "header": [
+                    {
+                        "name": "fullName",
+                        "label": "Name",
+                        "dataType": "string",
+                    },
+                ],
+        */
+
+        "fields": [
+            {
+                "name": "resourceType",
+                "label": "Resource Type",
+                "dataType": "string",
+                "favorite": true,
+                "width": 200,
+                "required": true,
+                "tooltip": ""
+            },
+            {
+                "name": "permImpact",
+                "label": "Permanent Impact",
+                "dataType": "string",
+                "tooltip": "",
+                "header": "Impact"
+            },
+            {
+                "name": "tempImpact",
+                "label": "Temporary Impact",
+                "dataType": "string",
+                "tooltip": "",
+                "header": "Impact"
+
+            },
+            {
+                "name": "mitigation",
+                "label": "Mitigation",
+                "dataType": "string",
+                "tooltip": "",
+                "header": "Impact"
+            },
+
+            {
+                "name": "impactDescription",
+                "label": "Describe Impact",
+                "dataType": "string",
+                "width": 200,
+                "tooltip": ""
+            },
+        ],
+        "_links": {
+            "self": {
+                "href": "/api/config/components/CoastalResourceImpactTableFieldSet",
+                "type": "application/json"
+            }
+        }
+    },
+
     "documentsCheckin0": {
         "id": "documentsCheckin0",
         "resourceName": "documents",

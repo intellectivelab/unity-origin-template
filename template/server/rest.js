@@ -1000,4 +1000,10 @@ module.exports = function (app) {
 		}, 1000);
 	});
 
+	app.get('/api/config/:resourceName/fieldsets/:fieldSetId', function (req, res) {
+		setTimeout(() => {
+			res.send(components[req.params.fieldSetId]);
+		}, respTime());
+	});
+
 };
