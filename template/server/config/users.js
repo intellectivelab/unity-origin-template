@@ -1103,8 +1103,7 @@ module.exports = {
 			        {
 				        "name": "jobArea",
 				        "label": "Industry",
-				        "dataType": "string",
-                        "ui": "rtftext",
+				        "dataType": "rtfeditor",
                         "fullWidth": true,
 				        "tooltip": ""
 			        },
@@ -1112,8 +1111,8 @@ module.exports = {
                     {
                         "name": "jobTitle",
                         "label": '[{"children":[{"text":"Describe the proposed regulated work and activities in a detailed narrative, including the number and dimensions of structures and the volume and area of fill or excavations. See "},{"type":"link","url":"https://portal.ct.gov/-/media/DEEP/Permits_and_Licenses/Land_Use_Permits/LWRD/LWRDinstpdf#Page=4.pdf?la=en","children":[{"text":"LWRD Application Instructions"}]},{"text":" for required information."}],"type":"align-justify"}]',
-                        "dataType": "string",
-                        "ui": "rtfinput",
+                        "dataType": "rtfeditor",
+                        "ui": "rtftext",
                         "fullWidth": true,
                         "required": true,
                         "tooltip": "Enter Job Title"
@@ -1263,8 +1262,7 @@ module.exports = {
                     {
                         "name": "part5Title",
                         "defaultValue": '[{"children":[{"text":"Certain types of projects require documentation of engineering design. If you answer yes to questions 1 or 2 below, you must submit a completed "},{"type":"link","url":"https://portal.ct.gov/-/media/DEEP/Permits_and_Licenses/Land_Use_Permits/LWRD/engineerreportcoverpdf.pdf?la=en","children":[{"text":"Engineering Report Cover Sheet","bold":true}]},{"text":" (DEEP-LWRD-APP-001R) as Attachment 18 along with the relevant engineering report(s)."}]}]',
-                        "dataType": "string",
-                        "ui": "rtflabel",
+                        "dataType": "rtftext",
                         "fullWidth": true
                     },
                     {
@@ -1285,7 +1283,7 @@ module.exports = {
                                 "name": "no",
                                 "value": "no",
                                 "reason": {
-                                    "ui": "rtfinput",
+                                    "ui": "rtftext",
                                     "label": "If no, explain:"
                                 }
                             },

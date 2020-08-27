@@ -1120,7 +1120,7 @@ module.exports = {
             {
                 "name": "ucmAnnotationComment",
                 "label": "Comment",
-                "dataType": "string",
+                "dataType": "rtfeditor",
                 "required": true,
                 "ui": "rtftext"
             }
@@ -1138,7 +1138,7 @@ module.exports = {
             {
                 "name": "eventTitle",
                 "label": "Comment",
-                "dataType": "string",
+                "dataType": "rtfeditor",
 	            "required": true,
                 "ui": "rtftext"
             },
