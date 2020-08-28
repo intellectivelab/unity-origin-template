@@ -220,6 +220,11 @@ const userResourceRecords = users.map(({_links = {}, ...otherProps}) => {
 	};
 });
 
+const randomUsers = (cnt = 10, props = ['firstName', 'lastName', 'gender', 'email', 'dob', 'age', 'phone']) => {
+	const indices = R.times(()=>Math.floor(Math.random() * users.length), cnt);
+	return indices.map(ind => users[ind]).map(R.pick(props));
+};
+
 const caseTasksRaw = fs.readFileSync(__dirname + '/data/casetasks.json');
 const caseTasks = JSON.parse(caseTasksRaw)
 	.map(caseTask => R.over(idLens, () => uuidv4(), caseTask))
@@ -330,6 +335,19 @@ const withRecordLinks = (typeName, record) => {
 			return record;
 	}
 };
+
+const withRelatedRecords = (typeName, record) => {
+	switch (typeName) {
+		case "users":
+			return {
+				...record,
+				related: randomUsers(Math.floor(Math.random() * 10))
+			};
+		default:
+			return record;
+	}
+};
+
 
 function suTokenCheck(req) {
 	const su_token = req.query['su_token'];
@@ -665,9 +683,10 @@ module.exports = function (app) {
 
 		if (filteredData.length > 0) {
 			const {_links, ...fields} = withRecordLinks(req.params.typeName, filteredData[0]);
+			const _fields = withRelatedRecords(req.params.typeName, fields);
 
 			setTimeout(() => {
-				res.send({fields, _links});
+				res.send({fields: _fields, _links});
 			}, respTime());
 		} else {
 			res.status(404).send('Sorry cant find ' + req.params.dataId);

@@ -1371,67 +1371,92 @@ module.exports = {
                         ],
                         "helperText": '[{"children":[{"text":"Please make sure Item 3., above ,documents that there are no feasible, less environmentally damaging alternatives and include Attachment 18, Engineering Report Cover Sheet. Also, the municipality must forward the related Coastal Site Plan Review to LWRD. See "},{"type":"link","url":"https://portal.ct.gov/-/media/DEEP/Permits_and_Licenses/Land_Use_Permits/LWRD/LWRDinstpdf#Page=5.pdf?la=en","children":[{"text":"LWRD Application Instructions","bold":true,"color":"#004dcf"}]},{"text":" for further guidance."}]}]'
                     },
+                ]
+            },
+
+            {
+                "title": "Relations",
+                "expanded": true,
+                "fields": [
 
                     {
-                        "name": "coastalResourceImpact",
-                        "label": 'Coastal Resource Impact Table',
+                        "name": "related",
+                        "label": 'Related Users',
                         "dataType": "table",
                         "multiValue": true,
                         "fullWidth": true,
 
+/*
                         "_links": {
                             "fieldset": {
-                                "href": '/api/config/users/fieldsets/CoastalResourceImpactTableFieldSet'
+                                "href": '/api/config/users/fieldsets/RelatedUsersTableFieldSet'
                             },
-                        }, //or
-/*
-
+                        },
+*/
+                        //or
                         "fieldset": {
                             "fields": [
                                 {
-                                    "name": "resourceType",
-                                    "label": "Resource Type",
+                                    "name": "firstName",
+                                    "label": "First Name",
                                     "dataType": "string",
                                     "favorite": true,
-                                    "width": 200,
                                     "required": true,
+                                    "tooltip": "",
+                                    "header": "User Name"
+                                },
+                                {
+                                    "name": "lastName",
+                                    "label": "Last Name",
+                                    "dataType": "string",
+                                    "favorite": true,
+                                    "required": true,
+                                    "tooltip": "",
+                                    "header": "User Name"
+                                },
+                                {
+                                    "name": "gender",
+                                    "label": "Gender",
+                                    "dataType": "string",
+                                    "tooltip": "",
+                                },
+                                {
+                                    "name": "email",
+                                    "label": "Email",
+                                    "dataType": "string",
+                                    "tooltip": "",
+                                },
+                                {
+                                    "name": "dob",
+                                    "label": "Date of Birth",
+                                    "dataType": "date",
+/*
+                                    "favorite": true,
+*/
+                                    "format": "m/d/Y",
                                     "tooltip": ""
                                 },
                                 {
-                                    "name": "permImpact",
-                                    "label": "Permanent Impact",
-                                    "dataType": "string",
-                                    "tooltip": ""
+                                    "name": "age",
+                                    "label": "Age",
+                                    "dataType": "int",
+                                    "favorite": true,
+                                    "tooltip": "",
                                 },
                                 {
-                                    "name": "tempImpact",
-                                    "label": "Temporary Impact",
+                                    "name": "phone",
+                                    "label": "Phone",
                                     "dataType": "string",
-                                    "tooltip": ""
-                                },
-                                {
-                                    "name": "mitigation",
-                                    "label": "Mitigation",
-                                    "dataType": "string",
-                                    "tooltip": ""
-                                },
-
-                                {
-                                    "name": "impactDescription",
-                                    "label": "Describe Impact",
-                                    "dataType": "string",
-                                    "width": 200,
-                                    "tooltip": ""
-                                },
+                                    "tooltip": "",
+                                }
                             ],
                             "_links": {
                                 "self": {
-                                    "href": "/api/config/components/CoastalResourceImpactTableFieldSet",
+                                    "href": "/api/config/components/RelatedUsersTableFieldSet",
                                     "type": "application/json"
                                 }
                             }
                         }
- */
                     },
                 ]
             },
@@ -1711,7 +1736,7 @@ module.exports = {
         }
     },
 
-    "CoastalResourceImpactTableFieldSet": {
+    "RelatedUsersTableFieldSet": {
 
         /*
                 "header": [
@@ -1725,48 +1750,59 @@ module.exports = {
 
         "fields": [
             {
-                "name": "resourceType",
-                "label": "Resource Type",
+                "name": "firstName",
+                "label": "First Name",
                 "dataType": "string",
                 "favorite": true,
-                "width": 200,
                 "required": true,
-                "tooltip": ""
-            },
-            {
-                "name": "permImpact",
-                "label": "Permanent Impact",
-                "dataType": "string",
                 "tooltip": "",
-                "header": "Impact"
-            },
-            {
-                "name": "tempImpact",
-                "label": "Temporary Impact",
-                "dataType": "string",
-                "tooltip": "",
-                "header": "Impact"
+                "header": "User Name"
 
             },
             {
-                "name": "mitigation",
-                "label": "Mitigation",
+                "name": "lastName",
+                "label": "Last Name",
+                "dataType": "string",
+                "required": true,
+                "tooltip": "",
+                "header": "User Name"
+            },
+            {
+                "name": "gender",
+                "label": "Gender",
                 "dataType": "string",
                 "tooltip": "",
-                "header": "Impact"
             },
-
             {
-                "name": "impactDescription",
-                "label": "Describe Impact",
+                "name": "email",
+                "label": "Email",
                 "dataType": "string",
-                "width": 200,
+                "tooltip": "",
+            },
+            {
+                "name": "dob",
+                "label": "Date of Birth",
+                "dataType": "date",
+                "favorite": true,
+                "format": "m/d/Y",
                 "tooltip": ""
             },
+            {
+                "name": "age",
+                "label": "Age",
+                "dataType": "int",
+                "tooltip": "",
+            },
+            {
+                "name": "phone",
+                "label": "Phone",
+                "dataType": "string",
+                "tooltip": "",
+            }
         ],
         "_links": {
             "self": {
-                "href": "/api/config/components/CoastalResourceImpactTableFieldSet",
+                "href": "/api/config/components/RelatedUsersTableFieldSet",
                 "type": "application/json"
             }
         }
