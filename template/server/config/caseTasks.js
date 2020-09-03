@@ -1122,7 +1122,6 @@ module.exports = {
                 "label": "Comment",
                 "dataType": "string",
                 "required": true,
-                "ui": "rtftext"
             }
         ],
         "sections": [],
@@ -1140,7 +1139,6 @@ module.exports = {
                 "label": "Comment",
                 "dataType": "string",
 	            "required": true,
-                "ui": "rtftext"
             },
             {
                 "name": "eventActor",
