@@ -1411,12 +1411,14 @@ module.exports = {
                                     "tooltip": "",
                                     "header": "User Name"
                                 },
-                                {
-                                    "name": "gender",
-                                    "label": "Gender",
-                                    "dataType": "string",
-                                    "tooltip": "",
-                                },
+								{
+									"name": "gender",
+									"dataType": "select",
+									"label": "Gender",
+									"multiValue": false,
+									"options": [{"name": "Male", "value": "Male"}, {"name": "Female", "value": "Female"}]
+								},
+
                                 {
                                     "name": "email",
                                     "label": "Email",
