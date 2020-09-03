@@ -1383,15 +1383,7 @@ module.exports = {
                         "multiValue": true,
                         "fullWidth": true,
 
-/*
-                        "_links": {
-                            "fieldset": {
-                                "href": '/api/config/users/fieldsets/RelatedUsersTableFieldSet'
-                            },
-                        },
-*/
-                        //or
-                        "fieldset": {
+                        "fieldset": { //also "fieldset" as a link is supported
                             "fields": [
                                 {
                                     "name": "firstName",
@@ -1416,6 +1408,7 @@ module.exports = {
 									"dataType": "select",
 									"label": "Gender",
 									"multiValue": false,
+									"defaultValue": "Female",
 									"options": [{"name": "Male", "value": "Male"}, {"name": "Female", "value": "Female"}]
 								},
 
@@ -1730,78 +1723,6 @@ module.exports = {
         "_links": {
             "self": {
                 "href": "/api/config/components/usersViewFieldset1",
-                "type": "application/json"
-            }
-        }
-    },
-
-    "RelatedUsersTableFieldSet": {
-
-        /*
-                "header": [
-                    {
-                        "name": "fullName",
-                        "label": "Name",
-                        "dataType": "string",
-                    },
-                ],
-        */
-
-        "fields": [
-            {
-                "name": "firstName",
-                "label": "First Name",
-                "dataType": "string",
-                "favorite": true,
-                "required": true,
-                "tooltip": "",
-                "header": "User Name"
-
-            },
-            {
-                "name": "lastName",
-                "label": "Last Name",
-                "dataType": "string",
-                "required": true,
-                "tooltip": "",
-                "header": "User Name"
-            },
-            {
-                "name": "gender",
-                "label": "Gender",
-                "dataType": "string",
-                "tooltip": "",
-            },
-            {
-                "name": "email",
-                "label": "Email",
-                "dataType": "string",
-                "tooltip": "",
-            },
-            {
-                "name": "dob",
-                "label": "Date of Birth",
-                "dataType": "date",
-                "favorite": true,
-                "format": "m/d/Y",
-                "tooltip": ""
-            },
-            {
-                "name": "age",
-                "label": "Age",
-                "dataType": "int",
-                "tooltip": "",
-            },
-            {
-                "name": "phone",
-                "label": "Phone",
-                "dataType": "string",
-                "tooltip": "",
-            }
-        ],
-        "_links": {
-            "self": {
-                "href": "/api/config/components/RelatedUsersTableFieldSet",
                 "type": "application/json"
             }
         }
