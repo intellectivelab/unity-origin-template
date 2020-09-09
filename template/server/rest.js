@@ -81,6 +81,7 @@ const userWithLinks = (user) => {
 		country: toSelector(user.countryName, user.countryCode),
 		state: Array.isArray(user.state) ? user.state.map(item => toSelector(item, item)) : toSelector(user.state, user.state),
 		retire: user.age > 60,
+		linkedUser: user.id,
 		mimeType: mimeType[Math.floor(Math.random() * mimeType.length)],
 		_links
 	};
@@ -587,6 +588,21 @@ module.exports = function (app) {
 		setTimeout(() => {
 			const id = req.params.cName + req.params.tabId;
 			res.send(actions[id]);
+		}, respTime());
+	});
+
+	app.get('/api/config/components/:lName/data', function (req, res) {
+
+		const lookupConfig = components[req.params.lName];
+		const idField = lookupConfig.idField;
+		const labelField = lookupConfig.labelField;
+		const resources = filterUserResourceRecords(idField + '==' + req.query.id);
+
+		setTimeout(() => {
+			res.send({
+				value: req.query.id,
+				name: resources[0][labelField]
+			});
 		}, respTime());
 	});
 

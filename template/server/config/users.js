@@ -1,4 +1,43 @@
 module.exports = {
+	"usersLookup": {
+		"id": "usersLookup",
+		"type": "SearchTemplate",
+		"searchTemplateId": "usersSearch0",
+		"idField": "id",
+		"labelField": "fullName",
+		"_links": {
+			"self": {
+				"href": "/api/config/components/usersLookup",
+				"type": "application/json"
+			},
+			"config": {
+				"href": "/api/config/components/usersSearchForLookup",
+				"type": "application/json"
+			}
+		}
+	},
+	"usersSearchForLookup": {
+		"id": "usersSearchForLookup",
+		"title": "Users Search for Lookup",
+		"_links": {
+			"self": {
+				"href": "/api/config/components/usersSearchForLookup",
+				"type": "application/json"
+			},
+			"criteria": {
+				"href": "/api/config/components/usersSearchCriteriaForLookup",
+				"type": "application/json"
+			},
+			"grid": {
+				"href": "/api/config/components/users",
+				"type": "application/json"
+			},
+			"query": {
+				"href": "/api/users/query",
+				"type": "application/json"
+			},
+		}
+	},
 	"usersSearch": [
 		{
 			"id": "usersSearch0",
@@ -346,6 +385,20 @@ module.exports = {
 		"title": "Search Criteria",
 		"hidden": false,
 		"fields": [
+			{
+				"name": "email",
+				"label": "Linked user:",
+				"dataType": "lookup",
+				"lookupId": "usersLookup",
+				"_links": {
+					"lookup": {
+						"href": '/api/config/components/usersLookup'
+					},
+					"lookupData": {
+						"href": '/api/config/components/usersLookup/data?id={id}'
+					}
+				}
+			},
 			{
 				"name": "firstName",
 				"dataType": "textfield",
@@ -879,6 +932,67 @@ module.exports = {
 			},
 		],
 	},
+	"usersSearchCriteriaForLookup": {
+		"id": "usersSearchCriteriaForLookup",
+		"title": "Search Criteria",
+		"hidden": false,
+		"sections": [
+			{
+				"title": "Industry & Job",
+				"subtitle": "Details",
+				"fields": [
+					{
+						name: 'jobType',
+						dataType: 'fieldstats',
+						label: 'Job Type',
+						ui: 'checkbox',
+						"multiValue": true,
+						tooltip: "Breakdown by job type field",
+						"facets": [
+							{
+								id: "jobtypes",
+								type: "TERMS",
+								field: "jobType",
+								label: 'Job Type',
+								dataType: 'string',
+								limit: 7,
+								minCount: 1
+							}
+						],
+						"_links": {
+							"facetItems": {
+								"href": '/api/users/facets/select'
+							}
+						}
+					},
+					{
+						name: 'jobArea',
+						dataType: 'fieldstats',
+						label: 'Industry',
+						ui: 'toggle',
+						"multiValue": true,
+						tooltip: "Breakdown by industry",
+						"facets": [
+							{
+								id: "jobArea",
+								type: "TERMS",
+								field: "jobArea",
+								label: 'Job Area',
+								dataType: 'string',
+								limit: 7,
+								minCount: 1
+							}
+						],
+						"_links": {
+							"facetItems": {
+								"href": '/api/users/facets/select'
+							}
+						}
+					}
+				]
+			}
+		],
+	},
 	"usersView0": {
 		"id": "usersView0",
 		"resourceName": "documents",
@@ -1024,7 +1138,24 @@ module.exports = {
 					}
 				}
 			},
-
+			{
+				"name": "linkedUser",
+				"label": "Linked user:",
+				"dataType": "lookup",
+				"width": 200,
+				"required": true,
+				"favorite": true,
+				"lookupId": "usersLookup",
+				"tooltip": "",
+				"_links": {
+					"lookup": {
+						"href": '/api/config/components/usersLookup'
+					},
+					"lookupData": {
+						"href": '/api/config/components/usersLookup/data?id={id}'
+					}
+				}
+			},
 			{
 				"name": "fullName",
 				"label": "Name",
