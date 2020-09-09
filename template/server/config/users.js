@@ -1689,7 +1689,7 @@ module.exports = {
                 "dataType": "file",
                 "variant": "droparea",
                 "favorite": false,
-                "required": false,
+                "required": true,
                 "multiValue": false,
                 "allowedExtensions": ["png", "jpg", "bmp"],
                 "maximumSize": 10000000, // 10 Mb
@@ -1701,7 +1701,7 @@ module.exports = {
                 "dataType": "file",
                 "variant": "droparea",
                 "favorite": false,
-                "required": false,
+                "required": true,
                 "multiValue": true,
                 "limit": 3,
                 "allowedExtensions": ["png", "jpg", "bmp"],
