@@ -21,7 +21,6 @@ const defaultViewSettings = {
 	maxWidth: 'xl',
 	innerMaxWidth: 'lg',
 	margin: 'dense',
-	toolbarVariant: 'dense',
 	Layout: ColumnsLayout(2)
 };
 
