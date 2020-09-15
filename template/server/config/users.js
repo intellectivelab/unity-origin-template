@@ -1518,7 +1518,7 @@ module.exports = {
                 "tooltip": ""
             },
 
-			{
+			/*{
 				"name": "file1",
 				"label": "Photo",
 				"dataType": "file",
@@ -1540,7 +1540,7 @@ module.exports = {
 				"allowedExtensions": ["png", "jpg", "bmp"],
 				"maximumSize": 10000000, // 10 Mb
 				"tooltip": "Please attach your application form (if available)"
-			},
+			},*/
 
             {
                 "name": "fileApplication",
@@ -1554,7 +1554,7 @@ module.exports = {
                 "tooltip": "Please attach your application form (if available)"
             },
 
-            {
+            /*{
                 "name": "fileUnlim",
                 "label": "Files unlimited",
                 "dataType": "file",
@@ -1563,7 +1563,7 @@ module.exports = {
                 "multiValue": true,
                 "fullWidth": true,
                 "tooltip": "Please attach your application form (if available)"
-            },
+            },*/
 
             {
                 "name": "gender",
@@ -1684,7 +1684,7 @@ module.exports = {
                 "tooltip": ""
             },
 
-            {
+            /*{
                 "name": "fileDA",
                 "label": "Files DA",
                 "dataType": "file",
@@ -1709,7 +1709,7 @@ module.exports = {
                 "maximumSize": 10000000, // 10 Mb
                 "fullWidth": true,
                 "tooltip": "Please attach your application form (if available)"
-            },
+            },*/
 
             {
                 "name": "id",
