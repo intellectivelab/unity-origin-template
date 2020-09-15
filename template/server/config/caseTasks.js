@@ -648,6 +648,7 @@ module.exports = {
                 "name": "case_type",
                 "label": "Case Type",
                 "dataType": "string",
+	            "required": true,
                 "width": 100,
                 "tooltip": "Case Type"
             },
@@ -677,6 +678,7 @@ module.exports = {
                 "name": "case_status",
                 "label": "Case Status",
                 "dataType": "string",
+	            "required": true,
                 "width": 100,
                 "tooltip": "Case Status"
             },
@@ -751,6 +753,7 @@ module.exports = {
                 "name": "assigned_to_name",
                 "label": "Assigned To",
                 "dataType": "string",
+	            "required": true,
                 "width": 100,
                 "tooltip": "Assigned To"
             }
