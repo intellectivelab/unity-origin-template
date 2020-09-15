@@ -1013,7 +1013,7 @@ module.exports = function (app) {
 				{
 					id : 85,
 					locale : "en_US",
-					severity : "exclamation",
+					severity : "warning",
 					subject : "Tiny text",
 					body : "Text. Just text"
 				}
