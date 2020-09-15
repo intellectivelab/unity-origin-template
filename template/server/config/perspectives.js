@@ -1,7 +1,7 @@
 module.exports = [
 	{
 		"id": "search",
-		"title": "UnityDefaultPage.js",
+		"title": "Unity Application",
 		"default": true,
 		"dashboards": [
 			{
