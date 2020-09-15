@@ -25,8 +25,7 @@ const titleLens = R.lensProp("title");
 const workitemNameLens = R.lensProp("workitemName");
 const ucmLockedStatusLens = R.lensProp("ucmLockedStatus");
 
-const relatedDataLens = R.lensPath(["related", "data"]);
-const relatedTotalLens = R.lensPath(["related", "total"]);
+const relatedLens = R.lensProp("related");
 
 const crypto = require('crypto');
 const algorithm = 'des-ecb';
@@ -220,8 +219,7 @@ const users = usersParsed
 	.map(user => R.over(titleLens, () => user.fullName, user))
 	.map(user => R.over(resourceNameLens, () => 'documents', user))
 	.map(user => R.over(pathLens, () => R.view(pathLens, folderEntries[Math.floor(Math.random() * folderEntries.length)]), user))
-	.map(user => R.over(relatedTotalLens, () => R.add(Math.floor(Math.random() * 9), 1), user))
-	.map(user => R.over(relatedDataLens, ()=> randomUsers(R.view(relatedTotalLens, user))
+	.map(user => R.over(relatedLens, ()=> randomUsers(R.add(Math.floor(Math.random() * 9), 1))
 		.map(related => R.over(idLens, () => uuidv4(), related)), user))
 	.map(user => userWithLinks(user));
 const userResourceRecords = users.map(({_links = {}, ...otherProps}) => {

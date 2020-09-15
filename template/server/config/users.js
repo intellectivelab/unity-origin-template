@@ -1382,6 +1382,7 @@ module.exports = {
                         "dataType": "table",
                         "multiValue": true,
                         "fullWidth": true,
+						"required": true,
 
                         "fieldset": { //also "fieldset" as a link is supported
                             "fields": [
