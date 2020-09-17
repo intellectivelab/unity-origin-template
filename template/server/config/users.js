@@ -1416,16 +1416,13 @@ module.exports = {
                                 {
                                     "name": "email",
                                     "label": "Email",
-                                    "dataType": "string",
+                                    "dataType": "email",
                                     "tooltip": "",
                                 },
                                 {
                                     "name": "dob",
                                     "label": "Date of Birth",
                                     "dataType": "date",
-/*
-                                    "favorite": true,
-*/
                                     "format": "m/d/Y",
                                     "tooltip": ""
                                 },
@@ -1433,7 +1430,6 @@ module.exports = {
                                     "name": "age",
                                     "label": "Age",
                                     "dataType": "int",
-                                    "favorite": true,
                                     "tooltip": "",
                                 },
                                 {
