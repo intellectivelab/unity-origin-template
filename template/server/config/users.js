@@ -1077,6 +1077,7 @@ module.exports = {
 		"sections": [
 			{
 				"title": "Company",
+				"expanded": true,
 				"fields": [
 					{
 						"name": "companyName",
