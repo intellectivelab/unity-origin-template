@@ -511,11 +511,11 @@ module.exports = function (app) {
 			case 'state' : {
 				const country = queryContext.country || queryContext.countryCode;
 				const _statesByCountry = country ? statesByCountry[country]
-					.filter(state => state.name.includes(search))
-					.slice(offset, offset + limit) : states;
+					.filter(state => state.name.includes(search)) : states;
+				const data = _statesByCountry.slice(offset, offset + limit);
 				res.send({
-					total: _statesByCountry.length,
-					data: _statesByCountry
+					total: data.length,
+					data
 				});
 
 				break;
