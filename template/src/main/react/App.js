@@ -14,6 +14,8 @@ import {
 
 import DomainActionFactory from "./factories/DomainActionFactory";
 import DomainComponentFactory from "./factories/DomainComponentFactory";
+import DomainThemeBuilder from "./themes/DomainThemeBuilder";
+import DomainPalettes from "./themes/DomainPalettes";
 
 const defaultViewSettings = {
 	variant: 'dialog',
@@ -33,7 +35,7 @@ const App = () => {
 
 	if (searchParams.p && searchParams.p === 'resourceView') {
 		return (
-			<DefaultThemeProvider>
+			<DefaultThemeProvider Builder={DomainThemeBuilder} Palettes={DomainPalettes}>
 				<FactoryContextProvider viewSettings={defaultViewSettings}
 				                        ActionFactory={DomainActionFactory}
 				                        ComponentFactory={DomainComponentFactory}>
@@ -44,13 +46,13 @@ const App = () => {
 	}
 
 	return (
-		<DefaultThemeProvider>
+		<DefaultThemeProvider Builder={DomainThemeBuilder} Palettes={DomainPalettes}>
 			<FactoryContextProvider viewSettings={defaultViewSettings}
 			                        ActionFactory={DomainActionFactory}
 			                        ComponentFactory={DomainComponentFactory}>
 				<PerspectivesLoader title="Unity Application"
-									href='./api/1.0.0/config/perspectives'
-									searchParams={searchParams}/>
+				                    href='./api/1.0.0/config/perspectives'
+				                    searchParams={searchParams}/>
 			</FactoryContextProvider>
 		</DefaultThemeProvider>
 	);
