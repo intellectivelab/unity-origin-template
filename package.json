@@ -13,7 +13,7 @@
     "url": "https://github.com/intellectivelab/unity-cra-template"
   },
   "publishConfig": {
-    "registry": "http://18.236.47.14:4873"
+    "registry": "https://npm.intellective.com/repository/npm-main/"
   },
   "files": [
     "template",
