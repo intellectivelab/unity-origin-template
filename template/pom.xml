@@ -7,8 +7,9 @@
 
 	<groupId>com.intellective.unity</groupId>
 	<artifactId>unity-app-template</artifactId>
-	<name>Unity Application Template</name>
 	<version>1.0.0-SNAPSHOT</version>
+
+	<name>Unity React UI</name>
 
 	<packaging>war</packaging>
 
@@ -18,7 +19,82 @@
 		<spring.hateoas.version>0.25.1.RELEASE</spring.hateoas.version>
 		<spring.version>5.0.8.RELEASE</spring.version>
 		<slf4j.version>1.7.25</slf4j.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>force-clean</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-clean-plugin</artifactId>
+						<version>3.1.0</version>
+						<configuration>
+							<filesets>
+								<fileset>
+									<directory>build</directory>
+									<followSymlinks>false</followSymlinks>
+								</fileset>
+								<fileset>
+									<directory>build-unity</directory>
+									<followSymlinks>false</followSymlinks>
+								</fileset>
+								<fileset>
+									<directory>node_modules</directory>
+									<followSymlinks>false</followSymlinks>
+								</fileset>
+								<fileset>
+									<directory>.</directory>
+									<includes>
+										<include>package-lock.json</include>
+									</includes>
+									<followSymlinks>false</followSymlinks>
+								</fileset>
+								<fileset>
+									<directory>.</directory>
+									<includes>
+										<include>yarn.lock</include>
+									</includes>
+									<followSymlinks>false</followSymlinks>
+								</fileset>
+							</filesets>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>add-source-maps</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>3.2.3</version>
+						<configuration>
+							<webResources>
+								<resource>
+									<directory>${project.basedir}/build</directory>
+									<!-- it's not a good idea to filter binary files -->
+									<filtering>true</filtering>
+									<includes>
+										<include>**/*.html</include>
+										<include>**/*.js</include>
+										<include>**/*.css</include>
+										<include>**/*.map</include>
+									</includes>
+								</resource>
+							</webResources>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 	<dependencyManagement>
 		<dependencies>
@@ -63,6 +139,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -91,28 +168,18 @@
 					<execution>
 						<id>install node and npm</id>
 						<goals>
-							<goal>install-node-and-npm</goal>
+							<goal>install-node-and-yarn</goal>
 						</goals>
 						<configuration>
-							<nodeVersion>v12.16.3</nodeVersion>
-							<npmVersion>6.14.4</npmVersion>
+							<nodeVersion>v12.18.3</nodeVersion>
+							<yarnVersion>v1.22.4</yarnVersion>
 						</configuration>
 					</execution>
 
 					<execution>
-						<id>npm set registry</id>
+						<id>yarn install</id>
 						<goals>
-							<goal>npm</goal>
-						</goals>
-						<configuration>
-							<arguments>set @intellective:registry http://18.236.47.14:4873</arguments>
-						</configuration>
-					</execution>
-
-					<execution>
-						<id>npm install</id>
-						<goals>
-							<goal>npm</goal>
+							<goal>yarn</goal>
 						</goals>
 						<configuration>
 							<arguments>install</arguments>
@@ -122,10 +189,20 @@
 					<execution>
 						<id>npm run build</id>
 						<goals>
-							<goal>npm</goal>
+							<goal>yarn</goal>
 						</goals>
 						<configuration>
-							<arguments>run build</arguments>
+							<arguments>build</arguments>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>npm run build-unity</id>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
+						<configuration>
+							<arguments>build-unity</arguments>
 						</configuration>
 					</execution>
 				</executions>
@@ -156,9 +233,9 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.6</version>
+				<version>3.2.0</version>
 				<configuration>
-					<classesDirectory>${project.basedir}/build</classesDirectory>
+					<classesDirectory>${project.basedir}/build-unity</classesDirectory>
 					<archive>
 						<addMavenDescriptor>false</addMavenDescriptor>
 					</archive>
