@@ -1155,7 +1155,8 @@ module.exports = {
 						"href": '/api/config/components/usersLookup/data?id={id}'
 					}
 				}
-			},{
+			},
+			{
                 "name": "fullName",
                 "label": "Name",
                 "dataType": "string",
@@ -1206,7 +1207,8 @@ module.exports = {
         ],
         "sections": [
             {
-                "title": "Company","expanded": true,
+                "title": "Company",
+				"expanded": true,
                 "fields": [
                     {
                         "name": "companyName",
