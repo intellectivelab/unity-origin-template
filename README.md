@@ -35,7 +35,7 @@ For example:
 ```sh
 npx create-react-app my-app --template @intellective/unity-origin
 # or
-yarn create react-app my-app --template @intellective/unity-origin
+yarn create-react-app my-app --template @intellective/unity-origin
 ```
 Check out README file in the app folder.
 
