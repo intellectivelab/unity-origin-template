@@ -25,6 +25,8 @@ const titleLens = R.lensProp("title");
 const workitemNameLens = R.lensProp("workitemName");
 const ucmLockedStatusLens = R.lensProp("ucmLockedStatus");
 
+const relatedLens = R.lensProp("related");
+
 const crypto = require('crypto');
 const algorithm = 'des-ecb';
 const key = Buffer.from("d0e276d0144890d3", "hex");
@@ -205,11 +207,21 @@ const folders = JSON.parse(foldersRaw).reduce(treeReducer("/"), {});
 const folderEntries = Object.values(folders);
 
 const usersRaw = fs.readFileSync(__dirname + '/data/users.json');
-const users = JSON.parse(usersRaw)
+const usersParsed = JSON.parse(usersRaw);
+
+const randomUsers = (cnt = 10, users = usersParsed,
+					 props = ['firstName', 'lastName', 'gender', 'email', 'dob', 'age', 'phone']) => {
+	const indices = R.times(()=>Math.floor(Math.random() * users.length), cnt);
+	return indices.map(ind => users[ind]).map(R.pick(props));
+};
+
+const users = usersParsed
 	.map(user => R.over(idLens, () => uuidv4(), user))
 	.map(user => R.over(titleLens, () => user.fullName, user))
 	.map(user => R.over(resourceNameLens, () => 'documents', user))
 	.map(user => R.over(pathLens, () => R.view(pathLens, folderEntries[Math.floor(Math.random() * folderEntries.length)]), user))
+	.map(user => R.over(relatedLens, ()=> randomUsers(R.add(Math.floor(Math.random() * 9), 1))
+		.map(related => R.over(idLens, () => uuidv4(), related)), user))
 	.map(user => userWithLinks(user));
 const userResourceRecords = users.map(({_links = {}, ...otherProps}) => {
 	const {self, view} = _links;
@@ -220,7 +232,6 @@ const userResourceRecords = users.map(({_links = {}, ...otherProps}) => {
 		_links: {self, view},
 	};
 });
-
 const caseTasksRaw = fs.readFileSync(__dirname + '/data/casetasks.json');
 const caseTasks = JSON.parse(caseTasksRaw)
 	.map(caseTask => R.over(idLens, () => uuidv4(), caseTask))
@@ -681,7 +692,6 @@ module.exports = function (app) {
 
 		if (filteredData.length > 0) {
 			const {_links, ...fields} = withRecordLinks(req.params.typeName, filteredData[0]);
-
 			setTimeout(() => {
 				res.send({fields, _links});
 			}, respTime());
@@ -1014,6 +1024,12 @@ module.exports = function (app) {
 		setTimeout(() => {
 			res.send({error, errorMsg});
 		}, 1000);
+	});
+
+	app.get('/api/config/:resourceName/fieldsets/:fieldSetId', function (req, res) {
+		setTimeout(() => {
+			res.send(components[req.params.fieldSetId]);
+		}, respTime());
 	});
 
 };
