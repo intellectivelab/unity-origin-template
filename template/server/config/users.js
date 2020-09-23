@@ -1506,7 +1506,7 @@ module.exports = {
 
             {
                 "title": "Relations",
-                "expanded": true,
+                "expanded": false,
                 "fields": [
 
                     {
