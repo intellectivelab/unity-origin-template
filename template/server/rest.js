@@ -220,7 +220,7 @@ const users = usersParsed
 	.map(user => R.over(titleLens, () => user.fullName, user))
 	.map(user => R.over(resourceNameLens, () => 'documents', user))
 	.map(user => R.over(pathLens, () => R.view(pathLens, folderEntries[Math.floor(Math.random() * folderEntries.length)]), user))
-	.map(user => R.over(relatedLens, ()=> randomUsers(R.add(Math.floor(Math.random() * 9), 1))
+	.map(user => R.over(relatedLens, ()=> randomUsers(R.add(Math.floor(Math.random() * 3), 1))
 		.map(related => R.over(idLens, () => uuidv4(), related)), user))
 	.map(user => userWithLinks(user));
 const userResourceRecords = users.map(({_links = {}, ...otherProps}) => {
