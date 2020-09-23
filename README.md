@@ -14,18 +14,28 @@ Download and install nodejs - https://nodejs.org/en/download/
 ```npm -g install create-react-app```
 
 * Setup Intellective NPM repository:   
-    1. [Encrypt](https://help.sonatype.com/repomanager3/formats/npm-registry#npmRegistry-AuthenticationUsingBasicAuth) your Intellective credentials.
+    1. [Encrypt](https://help.sonatype.com/repomanager3/formats/npm-registry#npmRegistry-AuthenticationUsingBasicAuth) your Intellective credentials in the following format: **intellective_email:password**.
     2. Put encrypted string into your ~/.npmrc file (create if absent)
         ```text
         email=ichukanov@intellective.com 
         always-auth=true 
         _auth=INSERT_ENCRYPTED_PASSWORD_HERE
         ```
+        **Note: .npmrc should be in the user home directory.**
     3. Run command, 
         ```sh
         npm set @intellective:registry https://npm.intellective.com/repository/npm-main/
        ```
- 
+     
+    Check your .npmrc file, it should look like the following:
+
+    ```text
+     @intellective:registry=https://npm.intellective.com/repository/npm-main/
+     email=!your-id@intellective.com
+     always-auth=true
+     _auth=[YOUR_ENCRYPTED_CREDENTIALS]
+    ```
+
 ## Usage
 
 To use this template, add --template @intellective/unity-origin when creating a new app.
