@@ -549,4 +549,87 @@ module.exports = {
             }
         }
     },
+    "CaseTypeByLocationBreakdown": {
+        "id": "CaseTypeByLocationBreakdown",
+        "type": "sunburst",
+        "label": "Case Types By Location Breakdown",
+        "facets": [
+            {
+                id: "region",
+                type: "TERMS",
+                field: "region",
+                label: 'Region',
+                dataType: 'string',
+                limit: 10,
+                minCount: 1,
+                nested: [
+                    {
+                        id: "sub_region",
+                        type: "TERMS",
+                        field: "sub_region",
+                        label: 'Sub Region',
+                        dataType: 'string',
+                        limit: 10,
+                        minCount: 1,
+                        nested: [
+                            {
+                                id: "caseType",
+                                type: "TERMS",
+                                field: "case_type",
+                                label: 'Case Type',
+                                dataType: 'string',
+                                limit: 10,
+                                minCount: 1,
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "_links": {
+            "self": {
+                "href": "/api/config/components/CaseTypeByLocationBreakdown",
+                "type": "application/json"
+            },
+            "facetItems": {
+                "href": "/api/casetasks/facets/select"
+            }
+        }
+    },
+    "CaseStatusBreakdown": {
+        "id": "CaseStatusBreakdown",
+        "type": "sunburst",
+        "label": "Case Status Breakdown",
+        "facets": [
+            {
+                id: "case_type",
+                type: "TERMS",
+                field: "case_type",
+                label: 'Case Type',
+                dataType: 'string',
+                limit: 10,
+                minCount: 1,
+                nested: [
+                    {
+                        id: "case_status",
+                        type: "TERMS",
+                        field: "case_status",
+                        label: 'Case Status',
+                        dataType: 'string',
+                        limit: 10,
+                        minCount: 1,
+                    }
+                ]
+            }
+        ],
+        "_links": {
+            "self": {
+                "href": "/api/config/components/CaseStatusBreakdown",
+                "type": "application/json"
+            },
+            "facetItems": {
+                "href": "/api/casetasks/facets/select"
+            }
+        }
+    },
 };

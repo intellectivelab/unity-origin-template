@@ -330,6 +330,26 @@ module.exports = [
 							}
 						}
 					},
+                    {
+                        "id": "CaseTypeByLocationBreakdown",
+                        "type": "chart",
+                        "layout": "X6",
+                        "_links": {
+                            "config": {
+                                "href": "/api/config/components/CaseTypeByLocationBreakdown"
+                            }
+                        }
+                    },
+                    {
+                        "id": "CaseStatusBreakdown",
+                        "type": "chart",
+                        "layout": "X6",
+                        "_links": {
+                            "config": {
+                                "href": "/api/config/components/CaseStatusBreakdown"
+                            }
+                        }
+                    },
 					{
 						"id": "casetasks",
 						"type": "grid",
