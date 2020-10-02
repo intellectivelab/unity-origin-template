@@ -1166,14 +1166,15 @@ module.exports = {
                 "tooltip": ""
             },
             {
-                "name": "gender",
-                "label": "Gender",
-                "dataType": "choices",
-                "options": [{"name": "Male", "value": "Male"}, {"name": "Female", "value": "Female"}],
-                "required": true,
-                "favorite": true,
-                "width": 100,
-                "tooltip": ""
+	            "name": "gender",
+	            "label": "Gender",
+	            "dataType": "choices",
+	            "options": [{"name": "Male", "value": "Male"}, {"name": "Female", "value": "Female"}],
+	            "required": true,
+	            "favorite": true,
+	            "inline": true,
+	            "width": 100,
+	            "tooltip": ""
             },
             {
                 "name": "dob",
