@@ -26,18 +26,16 @@ const TestCondition = (unit) => {
 	const createPredicate = (unit) => {
 		const parseDateOrNumber = value => isNaN(value) ? Date.parse(value) : Number(value);
 
-		if (unit.includes('!==')) {
-			const [name, value] = unit.split('!==');
+		if (unit.includes('!=')) {
+			const [name, value] = unit.split('!=');
 
-			return (row) => row[name] && !String(row[name]).includes(value.replace(/["']/g, ""));
+			return (row) => row[name] && !String(row[name]).includes(value.replace(/["'*]/g, ""));
 		} else if (unit.includes('==')) {
 			const [name, value] = unit.split('==');
-
-			return (row) => row[name] && String(row[name]).includes(value.replace(/["']/g, ""));
+			return (row) => row[name] && String(row[name]).includes(value.replace(/["'*]/g, ""));
 		} else if (unit.includes('=CONTAINS=')) {
 			const [name, value] = unit.split('=CONTAINS=');
-
-			return (row) => row[name] && String(row[name]).includes(value.replace(/["']/g, ""));
+			return (row) => row[name] && String(row[name]).includes(value.replace(/["'*]/g, ""));
 		} else if (unit.includes('=in=')) {
 			const [name, value] = unit.split('=in=');
 
