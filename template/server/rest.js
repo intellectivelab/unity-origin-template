@@ -11,6 +11,8 @@ const selectFacets = analytics.selectFacets;
 const getTestFile = _export.getTestFile;
 const shortHash = _export.shortHash;
 
+const getIsAddon = num => num === 1;
+
 const {v4: uuidv4} = require('uuid');
 
 const idLens = R.lensProp("id");
@@ -62,6 +64,14 @@ const userWithLinks = (user) => {
 	} else {
 		_links["checkout"] = {"href": "/api/data/checkout/" + user.id};
 	}
+
+	const num = shortHash(user.id, 3);
+	if (getIsAddon(num)) {
+		const file = getTestFile(user.id, 0);
+		if (file.contentType === 'application/msword') {
+			_links["office.addon"] = "/api/users/" + user.id + "/office";
+		}
+    }
 
 	const toSelector = (name, value) => ({name: name, value: value});
 
@@ -153,29 +163,46 @@ const historyWithLinks = (item) => {
 	return {id: item["eventId"], ...item, _links};
 };
 
-const getContent = (userId, index) => {
+const getContentLinks = (userId, index, isAddon, mimeType, fileName) => {
+	const links = {
+		"download": {href: "/api/data/content/download/" + userId + "/" + index},
+		"view_content": {href: "/api/data/content/view/" + userId + "/" + index},
+	};
+
+	if (mimeType !== 'application/msword' || isAddon) {
+		return links;
+	}
+
+	return {
+		...links,
+		"open.browser": {href: `https://vkozyr.sharepoint.com/Shared%20Documents/sharepoint/Open%20in%20Office/storybook/${fileName}?d=w9eb8f4109e4f43e5baf71be900f300ed`},
+		"open.desktop": {href: `ms-word:ofe|u|https://vkozyr.sharepoint.com/Shared%20Documents/sharepoint/Open%20in%20Office/storybook/${fileName}`},
+	};
+};
+
+const getContent = (userId, index, isAddon) => {
 	const file = getTestFile(userId, index);
+
+	const _links = getContentLinks(userId, index, isAddon, file.contentType, file.fileName);
 
 	return {
 		mimeType: file.contentType,
 		contentSize: file.contentSize,
 		fileName: file.fileName,
 		contentIndex: index,
-		_links: {
-			"download": {href: "/api/data/content/download/" + userId + "/" + index},
-			"view_content": {href: "/api/data/content/view/" + userId + "/" + index},
-		}
+		_links
 	};
 };
 
-const contentWithLinks = (userId) => {
+const contentWithLinks = (userId, _getIsAddon = getIsAddon) => {
 	let contents = [];
 
 	const num = shortHash(userId, 3);
+	const isAddon = _getIsAddon(num);
 
-	if (num > 0) contents.push(getContent(userId, 0));
-	if (num > 1) contents.push(getContent(userId, 1));
-	if (num > 2) contents.push(getContent(userId, 2));
+	if (num > 0) contents.push(getContent(userId, 0, isAddon));
+	if (num > 1) contents.push(getContent(userId, 1, isAddon));
+	if (num > 2) contents.push(getContent(userId, 2, isAddon));
 
 	const _links = {
 		"self": {
@@ -880,6 +907,12 @@ module.exports = function (app) {
 		}, respTime());
 	});
 
+	app.get('/api/data/contents/:Id/addon', function (req, res) {
+		setTimeout(() => {
+			res.send(contentWithLinks(req.params.Id, num => true));
+		}, respTime());
+	});
+
 	app.get('/api/data/content/download/:Id/:i', function (req, res) {
 		suTokenCheck(req);
 
@@ -1029,6 +1062,16 @@ module.exports = function (app) {
 	app.get('/api/config/:resourceName/fieldsets/:fieldSetId', function (req, res) {
 		setTimeout(() => {
 			res.send(components[req.params.fieldSetId]);
+		}, respTime());
+	});
+
+	app.get('/api/users/:userId/office', (req, res) => {
+		setTimeout(() => {
+			const testFile = getTestFile(req.params.userId, 0);
+			res.send({
+				sessionId: 'MDAwMGtLVXQ3NnRNOVRRelpZakU1ZDU1dWJqOmQ2YjY2MGRmLTJlYWEtNGZmZC1hMTY0LTU5NjBhZWRjNzMwNw==',
+				original: {title: testFile.fileName, mimeType: testFile.contentType, documentDescriptor: {}}
+			});
 		}, respTime());
 	});
 
