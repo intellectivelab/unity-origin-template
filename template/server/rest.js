@@ -988,7 +988,7 @@ module.exports = function (app) {
 		encrypted += cipher.final('hex');
 
 		res.send({
-			content: "http://localhost:3000/api/shared/open?hash=" + encrypted
+			content: req.protocol + '://' + req.get('host') + "/api/shared/open?hash=" + encrypted
 		});
 	});
 
