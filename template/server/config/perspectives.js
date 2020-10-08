@@ -301,6 +301,10 @@ module.exports = [
 								"href": "/api/users/query",
 								"type": "application/json"
 							},
+							"list": {
+								"href": "/api/users/list",
+								"type": "application/json"
+							}
 						}
 					},
 				],
