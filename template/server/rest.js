@@ -20,6 +20,7 @@ const eventIdLens = R.lensProp("eventId");
 const labelLens = R.lensProp("label");
 const pathLens = R.lensProp("path");
 const parentIdLens = R.lensProp("parentId");
+const browseLinkLens = R.lensPath(["_links", "browse"]);
 
 const titleLens = R.lensProp("title");
 const workitemNameLens = R.lensProp("workitemName");
@@ -194,9 +195,10 @@ const labelMapper = item => ({...R.over(labelLens, () => item.name, item), ...it
 const safeParentPath = R.ifElse(R.endsWith('/'), R.identity, path => R.concat(path, '/'));
 const pathMapper = R.curry((path, item) => ({...R.over(pathLens, () => R.concat(safeParentPath(path), item.name), item), ...item}));
 const parentIdMapper = R.curry((parentId, item) => ({...R.over(parentIdLens, () => parentId, item), ...item}));
+const browseLinkMapper = item => ({...R.over(browseLinkLens, () => ({href: `/api/folders/browse?root=${item.path}`}), item), ...item});
 
 const treeReducer = (parentPath, parentId) => (acc, _item) => {
-	const item = R.compose(idMapper, labelMapper, pathMapper(parentPath), parentIdMapper(parentId))(_item);
+	const item = R.compose(idMapper, labelMapper, browseLinkMapper, pathMapper(parentPath), parentIdMapper(parentId))(_item);
 	const {id, path, children = []} = item;
 	const traversed = children.reduce(treeReducer(path, id), {});
 	return {...acc, [id]: item, ...traversed};
@@ -381,7 +383,7 @@ const getSortedData = (dataToSort, sort) => {
 };
 
 
-const filterFolders = (folderEntries, lazy, rootPath, filterPath) => {
+const filterFolders = (folderEntries, lazy, filterPath) => {
 
 	const root = folderEntries.length > 0 && folderEntries[0];
 
@@ -395,12 +397,8 @@ const filterFolders = (folderEntries, lazy, rootPath, filterPath) => {
 		return {...root, children: withChildren(root)};
 	}
 
-	if (rootPath === filterPath) {
-		return {...root, children: withChildren(root)};
-	}
-
-	const parentItem = folderEntries.find(item => item.path === filterPath);
-	return parentItem && {...parentItem, children: withChildren(parentItem)};
+	const parentItem = folderEntries.find(item => item.path === filterPath) || root;
+	return parentItem && {...R.omit(['parentId'], parentItem), children: withChildren(parentItem)};
 };
 
 const updateData = R.curry((id, updater, data) => {
@@ -943,7 +941,7 @@ module.exports = function (app) {
 
 		const {scope, root: path, offset, limit, query, sort, lazy = true} = req.query;
 
-		const result = filterFolders(folderEntries, lazy, "/", path);
+		const result = filterFolders(folderEntries, lazy, path);
 
 		setTimeout(() => {
 
