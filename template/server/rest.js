@@ -17,6 +17,8 @@ const {v4: uuidv4} = require('uuid');
 
 const idLens = R.lensProp("id");
 const resourceNameLens = R.lensProp("resourceName");
+const resourceTypeLens = R.lensProp("resourceType");
+
 const eventIdLens = R.lensProp("eventId");
 
 const labelLens = R.lensProp("label");
@@ -229,27 +231,25 @@ const treeReducer = (parentPath, parentId) => (acc, _item) => {
 	return {...acc, [id]: item, ...traversed};
 };
 
-const foldersRaw = fs.readFileSync(__dirname + '/data/folders.json');
-const folders = JSON.parse(foldersRaw).reduce(treeReducer("/"), {});
+const folders = JSON.parse(fs.readFileSync(__dirname + '/data/folders.json')).reduce(treeReducer("/"), {});
 const folderEntries = Object.values(folders);
 
-const usersRaw = fs.readFileSync(__dirname + '/data/users.json');
-const usersParsed = JSON.parse(usersRaw);
-
-const randomUsers = (cnt = 10, users = usersParsed,
+const randomUsers = (cnt = 10, users = JSON.parse(fs.readFileSync(__dirname + '/data/users.json')),
 					 props = ['firstName', 'lastName', 'gender', 'email', 'dob', 'age', 'phone']) => {
 	const indices = R.times(()=>Math.floor(Math.random() * users.length), cnt);
 	return indices.map(ind => users[ind]).map(R.pick(props));
 };
 
-const users = usersParsed
+const users = JSON.parse(fs.readFileSync(__dirname + '/data/users.json'))
 	.map(user => R.over(idLens, () => uuidv4(), user))
 	.map(user => R.over(titleLens, () => user.fullName, user))
 	.map(user => R.over(resourceNameLens, () => 'documents', user))
+	.map(user => R.over(resourceTypeLens, () => 'User', user))
 	.map(user => R.over(pathLens, () => R.view(pathLens, folderEntries[Math.floor(Math.random() * folderEntries.length)]), user))
 	.map(user => R.over(relatedLens, ()=> randomUsers(R.add(Math.floor(Math.random() * 3), 1))
 		.map(related => R.over(idLens, () => uuidv4(), related)), user))
 	.map(user => userWithLinks(user));
+
 const userResourceRecords = users.map(({_links = {}, ...otherProps}) => {
 	const {self, view} = _links;
 	return {
@@ -259,19 +259,22 @@ const userResourceRecords = users.map(({_links = {}, ...otherProps}) => {
 		_links: {self, view},
 	};
 });
-const caseTasksRaw = fs.readFileSync(__dirname + '/data/casetasks.json');
-const caseTasks = JSON.parse(caseTasksRaw)
+
+const cases = JSON.parse(fs.readFileSync(__dirname + '/data/casetasks.json'))
 	.map(caseTask => R.over(idLens, () => uuidv4(), caseTask))
 	.map(caseTask => R.over(workitemNameLens, () => caseTask.task_name, caseTask))
-	.map(caseTask => R.over(resourceNameLens, () => 'workitems', caseTask))
+	.map(caseTask => R.over(resourceNameLens, () => 'cases', caseTask))
+	.map(caseTask => R.over(resourceTypeLens, () => 'TestCase', caseTask))
 	.map(caseTask => R.over(ucmLockedStatusLens, () => Math.floor(Math.random() * 3), caseTask))
 	.map(task => taskWithLinks(task));
-const caseTasksResourceRecords = caseTasks.map(({_links, ...otherProps}) => {
+
+const caseTasksResourceRecords = cases.map(({_links, ...otherProps}) => {
 	const {self, view} = _links;
+
 	return {
 		...otherProps,
 		resourceName: 'resources',
-		resourceType: 'workitems',
+		resourceType: 'CaseTask',
 		_links: {self, view},
 	};
 });
@@ -328,7 +331,7 @@ const statesByCountry = countryStateCity.reduce((acc, country) => (
 ), {});
 
 const filterUsers = filteringLogic(users);
-const filterCaseTasks = filteringLogic(caseTasks);
+const filterCaseTasks = filteringLogic(cases);
 const filterHistory = filteringLogic(history);
 const filterComments = filteringLogic(comments);
 
@@ -580,7 +583,7 @@ module.exports = function (app) {
 		const ids = typedIds.map(({id}) => id);
 
 		setTimeout(() => {
-			res.send(caseTasks
+			res.send(cases
 				.filter(task => ids.includes(task.id))
 				.map(withCasetaskRecordLinks));
 		}, respTime());
@@ -712,7 +715,7 @@ module.exports = function (app) {
 				[R.equals("users"), R.always(users)],
 				[R.equals("history"), R.always(history)],
 				[R.equals("comments"), R.always(comments)],
-				[R.equals("casetasks"), R.always(caseTasks)],
+				[R.equals("casetasks"), R.always(cases)],
 				[R.T, []],
 			])(req.params.typeName)
 		).filter(row => condition(row));
@@ -793,14 +796,14 @@ module.exports = function (app) {
 	app.post('/api/data/casetasks/:caseType/:id/split', function (req, res) {
 		console.log(req.body);
 		setTimeout(() => {
-			const foundTask = caseTasks.find(TestCondition('id==' + req.params.id));
+			const foundTask = cases.find(TestCondition('id==' + req.params.id));
 			if (!foundTask || foundTask.case_id % 10 == 0) 
 				res.status(500).send('Server error for Case '+req.params.id);
 			else {
 			        const {_links, ...oldFields} = foundTask;
 				const newFields = {...oldFields, ...req.body.caseData, case_type: req.body.caseType || foundTask.case_type, id: uuidv4()};
 			        const newCase = taskWithLinks(newFields);
-				caseTasks.push(newCase);
+				cases.push(newCase);
 				res.send({_links: newCase._links});
 			}	
 		}, respTime());
@@ -824,17 +827,17 @@ module.exports = function (app) {
 	});
 
 	app.post('/api/data/casetasks/:id/dispatch/approve', function (req, res) {
-		updateData(req.params.id, item => item['task_status'] = 'Approved', caseTasks);
+		updateData(req.params.id, item => item['task_status'] = 'Approved', cases);
 		res.send({result: "success"});
 	});
 
 	app.post('/api/data/casetasks/:id/dispatch/reject', function (req, res) {
-		updateData(req.params.id, item => item['task_status'] = 'Rejected', caseTasks);
+		updateData(req.params.id, item => item['task_status'] = 'Rejected', cases);
 		res.send({result: "success"});
 	});
 
 	app.post('/api/data/casetasks/:id/dispatch/close', function (req, res) {
-		deleteData(caseTasks, TestCondition('id==' + req.params.id));
+		deleteData(cases, TestCondition('id==' + req.params.id));
 		res.send({result: "success"});
 	});
 
