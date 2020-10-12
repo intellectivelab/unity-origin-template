@@ -20,7 +20,7 @@ const eventIdLens = R.lensProp("eventId");
 const labelLens = R.lensProp("label");
 const pathLens = R.lensProp("path");
 const parentIdLens = R.lensProp("parentId");
-const browseLinkLens = R.lensPath(["_links", "browse"]);
+const browseLinkLens = R.lensPath(["_links", "self"]);
 
 const titleLens = R.lensProp("title");
 const workitemNameLens = R.lensProp("workitemName");
