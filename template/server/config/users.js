@@ -42,6 +42,8 @@ module.exports = {
 		{
 			"id": "usersSearch0",
 			"title": "Users Search 0",
+			"resourceName": "documents",
+			"resourceType": "User",
 			"_links": {
 				"self": {
 					"href": "/api/config/components/usersSearch0",
@@ -59,11 +61,17 @@ module.exports = {
 					"href": "/api/users/query",
 					"type": "application/json"
 				},
+				"list": {
+					"href": "/api/users/list",
+					"type": "application/json"
+				},
 			}
 		},
 		{
 			"id": "usersSearch1",
 			"title": "Users Search 1",
+			"resourceName": "documents",
+			"resourceType": "User",
 			"_links": {
 				"self": {
 					"href": "/api/config/components/usersSearch1",
@@ -87,6 +95,8 @@ module.exports = {
 	"usersSearch0": {
 		"id": "usersSearch0",
 		"title": "Users Search 0",
+		"resourceName": "documents",
+		"resourceType": "User",
 		"_links": {
 			"self": {
 				"href": "/api/config/components/usersSearch0",
@@ -104,11 +114,17 @@ module.exports = {
 				"href": "/api/users/query",
 				"type": "application/json"
 			},
+			"list": {
+				"href": "/api/users/list",
+				"type": "application/json"
+			},
 		}
 	},
 	"usersSearch1": {
 		"id": "usersSearch1",
 		"title": "Users Search 1",
+		"resourceName": "documents",
+		"resourceType": "User",
 		"_links": {
 			"self": {
 				"href": "/api/config/components/usersSearch1",
@@ -126,11 +142,17 @@ module.exports = {
 				"href": "/api/users/query",
 				"type": "application/json"
 			},
+			"list": {
+				"href": "/api/users/list",
+				"type": "application/json"
+			},
 		}
 	},
 	"usersSearch_Female": {
 		"id": "usersSearch_Female",
 		"title": "Female Search",
+		"resourceName": "documents",
+		"resourceType": "User",
 		"_links": {
 			"self": {
 				"href": "/api/config/components/usersSearch_Female",
@@ -148,11 +170,17 @@ module.exports = {
 				"href": "/api/users/query",
 				"type": "application/json"
 			},
+			"list": {
+				"href": "/api/users/list",
+				"type": "application/json"
+			},
 		}
 	},
 	"usersSearch_Male": {
 		"id": "usersSearch_Female",
 		"title": "Female Search",
+		"resourceName": "documents",
+		"resourceType": "User",
 		"_links": {
 			"self": {
 				"href": "/api/config/components/usersSearch_Male",
@@ -170,11 +198,17 @@ module.exports = {
 				"href": "/api/users/query",
 				"type": "application/json"
 			},
+			"list": {
+				"href": "/api/users/list",
+				"type": "application/json"
+			},
 		}
 	},
 	"usersEnterpriseSearch": {
 		"id": "usersEnterpriseSearch",
 		"title": "Enterprise Users Search",
+		"resourceName": "documents",
+		"resourceType": "User",
 		"_links": {
 			"self": {
 				"href": "/api/config/components/usersEnterpriseSearch",
