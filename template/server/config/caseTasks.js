@@ -461,6 +461,28 @@ module.exports = {
                             }
                         }
                     },
+                    {
+                        name: 'sub_region',
+                        dataType: 'fieldstats',
+                        label: 'Sub Region',
+                        ui: 'combobox',
+                        "facets": [
+                            {
+                                id: "subRegion",
+                                type: "TERMS",
+                                field: "sub_region",
+                                label: 'Sub Region',
+                                dataType: 'string',
+                                limit: 10,
+                                minCount: 1
+                            }
+                        ],
+                        "_links": {
+                            "facetItems": {
+                                "href": '/api/casetasks/facets/select'
+                            }
+                        }
+                    },
                 ]
             },
         ]
