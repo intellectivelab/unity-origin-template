@@ -121,7 +121,7 @@ module.exports = [
                 "tooltip": "Folder View and documents from several sites",
                 "containers": [
                     {
-                        "ui": "sites",
+                        "ui": "tree",
                         "components": [
                             {
                                 "id": "DocumentSearchTemplate_Female",
