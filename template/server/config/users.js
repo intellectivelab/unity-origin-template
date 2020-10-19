@@ -1,8 +1,49 @@
 module.exports = {
+	"usersLookup": {
+		"id": "usersLookup",
+		"type": "SearchTemplate",
+		"searchTemplateId": "usersSearch0",
+		"idField": "id",
+		"labelField": "fullName",
+		"_links": {
+			"self": {
+				"href": "/api/config/components/usersLookup",
+				"type": "application/json"
+			},
+			"config": {
+				"href": "/api/config/components/usersSearchForLookup",
+				"type": "application/json"
+			}
+		}
+	},
+	"usersSearchForLookup": {
+		"id": "usersSearchForLookup",
+		"title": "Users Search for Lookup",
+		"_links": {
+			"self": {
+				"href": "/api/config/components/usersSearchForLookup",
+				"type": "application/json"
+			},
+			"criteria": {
+				"href": "/api/config/components/usersSearchCriteriaForLookup",
+				"type": "application/json"
+			},
+			"grid": {
+				"href": "/api/config/components/users",
+				"type": "application/json"
+			},
+			"query": {
+				"href": "/api/users/query",
+				"type": "application/json"
+			},
+		}
+	},
 	"usersSearch": [
 		{
 			"id": "usersSearch0",
 			"title": "Users Search 0",
+			"resourceName": "documents",
+			"resourceType": "User",
 			"_links": {
 				"self": {
 					"href": "/api/config/components/usersSearch0",
@@ -20,11 +61,17 @@ module.exports = {
 					"href": "/api/users/query",
 					"type": "application/json"
 				},
+				"list": {
+					"href": "/api/users/list",
+					"type": "application/json"
+				},
 			}
 		},
 		{
 			"id": "usersSearch1",
 			"title": "Users Search 1",
+			"resourceName": "documents",
+			"resourceType": "User",
 			"_links": {
 				"self": {
 					"href": "/api/config/components/usersSearch1",
@@ -48,6 +95,8 @@ module.exports = {
 	"usersSearch0": {
 		"id": "usersSearch0",
 		"title": "Users Search 0",
+		"resourceName": "documents",
+		"resourceType": "User",
 		"_links": {
 			"self": {
 				"href": "/api/config/components/usersSearch0",
@@ -65,11 +114,17 @@ module.exports = {
 				"href": "/api/users/query",
 				"type": "application/json"
 			},
+			"list": {
+				"href": "/api/users/list",
+				"type": "application/json"
+			},
 		}
 	},
 	"usersSearch1": {
 		"id": "usersSearch1",
 		"title": "Users Search 1",
+		"resourceName": "documents",
+		"resourceType": "User",
 		"_links": {
 			"self": {
 				"href": "/api/config/components/usersSearch1",
@@ -87,11 +142,17 @@ module.exports = {
 				"href": "/api/users/query",
 				"type": "application/json"
 			},
+			"list": {
+				"href": "/api/users/list",
+				"type": "application/json"
+			},
 		}
 	},
 	"usersSearch_Female": {
 		"id": "usersSearch_Female",
 		"title": "Female Search",
+		"resourceName": "documents",
+		"resourceType": "User",
 		"_links": {
 			"self": {
 				"href": "/api/config/components/usersSearch_Female",
@@ -109,11 +170,17 @@ module.exports = {
 				"href": "/api/users/query",
 				"type": "application/json"
 			},
+			"list": {
+				"href": "/api/users/list",
+				"type": "application/json"
+			},
 		}
 	},
 	"usersSearch_Male": {
 		"id": "usersSearch_Female",
 		"title": "Female Search",
+		"resourceName": "documents",
+		"resourceType": "User",
 		"_links": {
 			"self": {
 				"href": "/api/config/components/usersSearch_Male",
@@ -131,11 +198,17 @@ module.exports = {
 				"href": "/api/users/query",
 				"type": "application/json"
 			},
+			"list": {
+				"href": "/api/users/list",
+				"type": "application/json"
+			},
 		}
 	},
 	"usersEnterpriseSearch": {
 		"id": "usersEnterpriseSearch",
 		"title": "Enterprise Users Search",
+		"resourceName": "documents",
+		"resourceType": "User",
 		"_links": {
 			"self": {
 				"href": "/api/config/components/usersEnterpriseSearch",
@@ -346,6 +419,20 @@ module.exports = {
 		"title": "Search Criteria",
 		"hidden": false,
 		"fields": [
+			{
+				"name": "email",
+				"label": "Linked user:",
+				"dataType": "lookup",
+				"lookupId": "usersLookup",
+				"_links": {
+					"lookup": {
+						"href": '/api/config/components/usersLookup'
+					},
+					"lookupData": {
+						"href": '/api/config/components/usersLookup/data?id={id}'
+					}
+				}
+			},
 			{
 				"name": "firstName",
 				"dataType": "textfield",
@@ -856,353 +943,433 @@ module.exports = {
 						},
 						//"multiValue": true,
 
+                        "_links": {
+                            "selector": {
+                                "href": '/api/selectors/country'
+                            },
+                        }
+                    },
+                    {
+                        "name": 'state',
+                        "dataType": 'selector',
+                        "label": "State",
+                        "selectorId": 'stateCode',
+                        "linkedField": "countryCode",
+                        "multiValue": true,
+                        "_links": {
+                            "selector": {
+                                "href": '/api/selectors/stateCode'
+                            },
+                        }
+                    },
+                ]
+            },
+        ],
+    },
+    "usersSearchCriteriaForLookup": {
+		"id": "usersSearchCriteriaForLookup",
+		"title": "Search Criteria",
+		"hidden": false,
+		"sections": [
+			{
+				"title": "Industry & Job",
+				"subtitle": "Details",
+				"fields": [
+					{
+						name: 'jobType',
+						dataType: 'fieldstats',
+						label: 'Job Type',
+						ui: 'checkbox',
+						"multiValue": true,
+						tooltip: "Breakdown by job type field",
+						"facets": [
+							{
+								id: "jobtypes",
+								type: "TERMS",
+								field: "jobType",
+								label: 'Job Type',
+								dataType: 'string',
+								limit: 7,
+								minCount: 1
+							}
+						],
 						"_links": {
-							"selector": {
-								"href": '/api/selectors/country'
-							},
+							"facetItems": {
+								"href": '/api/users/facets/select'
+							}
 						}
 					},
 					{
-						"name": 'state',
-						"dataType": 'selector',
-						"label": "State",
-						"selectorId": 'stateCode',
-						"linkedField": "countryCode",
+						name: 'jobArea',
+						dataType: 'fieldstats',
+						label: 'Industry',
+						ui: 'toggle',
 						"multiValue": true,
+						tooltip: "Breakdown by industry",
+						"facets": [
+							{
+								id: "jobArea",
+								type: "TERMS",
+								field: "jobArea",
+								label: 'Job Area',
+								dataType: 'string',
+								limit: 7,
+								minCount: 1
+							}
+						],
 						"_links": {
-							"selector": {
-								"href": '/api/selectors/stateCode'
-							},
+							"facetItems": {
+								"href": '/api/users/facets/select'
+							}
 						}
-					},
+					}
 				]
-			},
+			}
 		],
 	},
 	"usersView0": {
-		"id": "usersView0",
-		"resourceName": "documents",
-		"resourceType": "Employee",
-		"viewType": "Open",
-		"tabs": [
-			{
-				"id": "1",
-				"title": "Details",
-				"tooltip": "Employee Details",
-				"type": "Details",
-				"fieldSetId": "usersViewFieldset0",
-				"_links": {
-					"root": {
-						"href": "/api/config/components/usersView0",
-						"type": "application/json"
-					},
-					"self": {
-						"href": "/api/config/components/usersView0/tabs/1",
-						"type": "application/json"
-					},
-					"actions": {
-						"href": "/api/config/components/usersView0/tabs/1/actions",
-						"type": "application/json"
-					},
-					"fieldset": {
-						"href": "/api/config/components/usersViewFieldset0",
-						"type": "application/json"
-					}
-				}
-			},
-			{
-				"id": "2",
-				"title": "Documents",
-				"tooltip": "Employee Documents",
-				"type": "Attachments",
-				"_links": {
-					"root": {
-						"href": "/api/config/components/usersView0",
-						"type": "application/json"
-					},
-					"self": {
-						"href": "/api/config/components/usersView0/tabs/2",
-						"type": "application/json"
-					},
-					"actions": {
-						"href": "/api/config/components/usersView0/tabs/2/actions",
-						"type": "application/json"
-					},
-					"templates": {
-						"href": "/api/config/components/usersSearch/templates",
-						"type": "application/json"
-					}
-				}
-			}
-		],
-		"_links": {
-			"self": {
-				"href": "/api/config/components/usersView0",
-				"type": "application/json"
-			},
-			"header": {
-				"href": "/api/config/components/usersView0/header",
-				"type": "application/json"
-			}
-		}
-	},
-	"usersView1": {
-		"id": "usersView1",
-		"resourceName": "documents",
-		"resourceType": "Employee",
-		"viewType": "Open",
-		"tabs": [{
-			"id": "1",
-			"title": "Details with files",
-			"tooltip": "Employee Details",
-			"type": "Details",
-			"fieldSetId": "usersViewFieldset1",
-			"_links": {
-				"root": {
-					"href": "/api/config/components/usersView1",
-					"type": "application/json"
-				},
-				"self": {
-					"href": "/api/config/components/usersView1/tabs/1",
-					"type": "application/json"
-				},
-				"actions": {
-					"href": "/api/config/components/usersView1/tabs/1/actions",
-					"type": "application/json"
-				},
-				"fieldset": {
-					"href": "/api/config/components/usersViewFieldset1",
-					"type": "application/json"
-				}
-			}
-		}],
-		"_links": {
-			"self": {
-				"href": "/api/config/components/usersView1",
-				"type": "application/json"
-			},
-			"header": {
-				"href": "/api/config/components/usersView1/header",
-				"type": "application/json"
-			}
-		}
-	},
-	"usersViewFieldset0": {
-		"header": [
-			{
-				"name": "fullName",
-				"label": "Name",
-				"dataType": "string",
-			},
-			{
-				"name": "gender",
-				"label": "Gender",
-			},
-			{
-				"name": "dob",
-				"label": "Date of Birth",
-				"dataType": "date",
-			},
-			{
-				"name": "salary",
-				"label": "Salary",
-				"dataType": "number",
-				"format": "$+1,000.00",
-			},
-		],
-		"fields": [
-			{
-				"name": "FolderPath",
-				"label": "Folder",
-				"dataType": "folderselect",
-				"tooltip": "Select a folder to upload the document(s)",
-				"multiValue": false,
-				"folderPath": "/",
-				"_links": {
-					"browse": {
-						"href": '/api/folders/browse?scope=ce_repository&root=/&offset=0&limit=20'
-					}
-				}
-			},
-
-			{
-				"name": "fullName",
-				"label": "Name",
-				"dataType": "string",
+        "id": "usersView0",
+        "resourceName": "documents",
+        "resourceType": "Employee",
+        "viewType": "Open",
+        "tabs": [
+            {
+                "id": "1",
+                "title": "Details",
+                "tooltip": "Employee Details",
+                "type": "Details",
+                "fieldSetId": "usersViewFieldset0",
+                "_links": {
+                    "root": {
+                        "href": "/api/config/components/usersView0",
+                        "type": "application/json"
+                    },
+                    "self": {
+                        "href": "/api/config/components/usersView0/tabs/1",
+                        "type": "application/json"
+                    },
+                    "actions": {
+                        "href": "/api/config/components/usersView0/tabs/1/actions",
+                        "type": "application/json"
+                    },
+                    "fieldset": {
+                        "href": "/api/config/components/usersViewFieldset0",
+                        "type": "application/json"
+                    }
+                }
+            },
+            {
+                "id": "2",
+                "title": "Documents",
+                "tooltip": "Employee Documents",
+                "type": "Attachments",
+                "_links": {
+                    "root": {
+                        "href": "/api/config/components/usersView0",
+                        "type": "application/json"
+                    },
+                    "self": {
+                        "href": "/api/config/components/usersView0/tabs/2",
+                        "type": "application/json"
+                    },
+                    "actions": {
+                        "href": "/api/config/components/usersView0/tabs/2/actions",
+                        "type": "application/json"
+                    },
+                    "templates": {
+                        "href": "/api/config/components/usersSearch/templates",
+                        "type": "application/json"
+                    }
+                }
+            }
+        ],
+        "_links": {
+            "self": {
+                "href": "/api/config/components/usersView0",
+                "type": "application/json"
+            },
+            "header": {
+                "href": "/api/config/components/usersView0/header",
+                "type": "application/json"
+            }
+        }
+    },
+    "usersView1": {
+        "id": "usersView1",
+        "resourceName": "documents",
+        "resourceType": "Employee",
+        "viewType": "Open",
+        "tabs": [{
+            "id": "1",
+            "title": "Details with files",
+            "tooltip": "Employee Details",
+            "type": "Details",
+            "fieldSetId": "usersViewFieldset1",
+            "_links": {
+                "root": {
+                    "href": "/api/config/components/usersView1",
+                    "type": "application/json"
+                },
+                "self": {
+                    "href": "/api/config/components/usersView1/tabs/1",
+                    "type": "application/json"
+                },
+                "actions": {
+                    "href": "/api/config/components/usersView1/tabs/1/actions",
+                    "type": "application/json"
+                },
+                "fieldset": {
+                    "href": "/api/config/components/usersViewFieldset1",
+                    "type": "application/json"
+                }
+            }
+        }],
+        "_links": {
+            "self": {
+                "href": "/api/config/components/usersView1",
+                "type": "application/json"
+            },
+            "header": {
+                "href": "/api/config/components/usersView1/header",
+                "type": "application/json"
+            }
+        }
+    },
+    "usersViewFieldset0": {
+        "header": [
+            {
+                "name": "fullName",
+                "label": "Name",
+                "dataType": "string",
+            },
+            {
+                "name": "gender",
+                "label": "Gender",
+            },
+            {
+                "name": "dob",
+                "label": "Date of Birth",
+                "dataType": "date",
+            },
+            {
+                "name": "salary",
+                "label": "Salary",
+                "dataType": "number",
+                "format": "$+1,000.00",
+            },
+        ],
+        "fields": [
+            {
+                "name": "FolderPath",
+                "label": "Folder",
+                "dataType": "folderselect",
+                "tooltip": "Select a folder to upload the document(s)",
+                "multiValue": false,
+                "folderPath": "/",
+                "_links": {
+                    "browse": {
+                        "href": '/api/folders/browse?scope=ce_repository&root=/&offset=0&limit=20'
+                    }
+                }
+            },
+{
+            "name": "linkedUser",
+				"label": "Linked user:",
+				"dataType": "lookup",
 				"width": 200,
 				"required": true,
 				"favorite": true,
-				"tooltip": ""
-			},
-			{
-				"name": "gender",
-				"label": "Gender",
-				"dataType": "choices",
-				"options": [{"name": "Male", "value": "Male"}, {"name": "Female", "value": "Female"}],
-				"required": true,
-				"favorite": true,
-				"width": 100,
-				"tooltip": ""
-			},
-			{
-				"name": "dob",
-				"label": "Date of Birth",
-				"dataType": "date",
-				"required": true,
-				"favorite": true,
-				"minValue": "1900/01/01",
-				"maxValue": "2050/06/01",
-				"multiValue": true,
-				"width": 100,
-				"tooltip": ""
-			},
-			{
-				"name": "age",
-				"label": "Age",
-				"dataType": "int",
-				"readOnly": false,
-				"minValue": 14,
-				"maxValue": 150,
-				"requiredCondition": "retire=true=",
-				"tooltip": ""
-			},
-			{
-				"name": "retire",
-				"ui": "rtflabel",
-				"label": '[{"children":[{"type":"link","url":"https://en.wikipedia.org/wiki/Retirement","children":[{"text":"Retired"}]}]}]',
-				"dataType": "boolean",
-				"tooltip": ""
-			}
-		],
-		"sections": [
-			{
-				"title": "Company",
-				"fields": [
-					{
-						"name": "companyName",
-						"label": "Company",
-						"dataType": "string",
-						"width": 200,
-						"tooltip": ""
+				"lookupId": "usersLookup",
+				"tooltip": "",
+				"_links": {
+					"lookup": {
+						"href": '/api/config/components/usersLookup'
 					},
-					{
-						"name": "jobType",
-						"label": "Job",
-						"dataType": "string",
-						"width": 200,
-						"tooltip": ""
-					},
-					{
-						"name": "salary",
-						"label": "Salary",
-						"dataType": "number",
-						"favorite": true,
-						"format": "$+1,000.00",
-					},
+					"lookupData": {
+						"href": '/api/config/components/usersLookup/data?id={id}'
+					}
+				}
+			},
+			{
+                "name": "fullName",
+                "label": "Name",
+                "dataType": "string",
+                "width": 200,
+                "required": true,
+                "favorite": true,
+                "tooltip": ""
+            },
+            {
+	            "name": "gender",
+	            "label": "Gender",
+	            "dataType": "choices",
+	            "options": [{"name": "Male", "value": "Male"}, {"name": "Female", "value": "Female"}],
+	            "required": true,
+	            "favorite": true,
+	            "inline": true,
+	            "width": 100,
+	            "tooltip": ""
+            },
+            {
+                "name": "dob",
+                "label": "Date of Birth",
+                "dataType": "date",
+                "required": true,
+                "favorite": true,
+                "minValue": "1900/01/01",
+                "maxValue": "2050/06/01",
+                "multiValue": true,
+                "width": 100,
+                "tooltip": ""
+            },
+            {
+                "name": "age",
+                "label": "Age",
+                "dataType": "int",
+                "readOnly": false,
+                "minValue": 14,
+                "maxValue": 150,
+                "requiredCondition": "retire=true=",
+                "tooltip": ""
+            },
+            {
+                "name": "retire",
+                "ui": "rtflabel",
+                "label": '[{"children":[{"type":"link","url":"https://en.wikipedia.org/wiki/Retirement","children":[{"text":"Retired"}]}]}]',
+                "dataType": "boolean",
+                "tooltip": ""
+            }
+        ],
+        "sections": [
+            {
+                "title": "Company",
+				"expanded": true,
+                "fields": [
+                    {
+                        "name": "companyName",
+                        "label": "Company",
+                        "dataType": "string",
+                        "width": 200,
+                        "tooltip": ""
+                    },
+                    {
+                        "name": "jobType",
+                        "label": "Job",
+                        "dataType": "string",
+                        "width": 200,
+                        "tooltip": ""
+                    },
+                    {
+                        "name": "salary",
+                        "label": "Salary",
+                        "dataType": "number",
+                        "favorite": true,
+                        "format": "$+1,000.00",
+                    },
 
-					{
-						"name": "jobArea",
-						"label": "Industry",
-						"dataType": "string",
-						"ui": "rtftext",
-						"fullWidth": true,
-						"tooltip": ""
-					},
+                    {
+                        "name": "jobArea",
+                        "label": "Industry",
+                        "dataType": "string",
+                        "ui": "rtftext",
+                        "fullWidth": true,
+                        "tooltip": ""
+                    },
 
 					{
 						"name": "jobTitle",
 						"label": '[{"children":[{"text":"Describe the proposed regulated work and activities in a detailed narrative, including the number and dimensions of structures and the volume and area of fill or excavations. See "},{"type":"link","url":"https://portal.ct.gov/-/media/DEEP/Permits_and_Licenses/Land_Use_Permits/LWRD/LWRDinstpdf#Page=4.pdf?la=en","children":[{"text":"LWRD Application Instructions"}]},{"text":" for required information."}],"type":"align-justify"}]',
 						"dataType": "rtfinput",
-						"fullWidth": true,
-						"required": true,
-						"tooltip": "Enter Job Title"
-					},
-				],
-			},
-			{
-				"title": "Address",
-				"fields": [
-					{
-						"name": "country",
-						"label": "Country",
-						"dataType": "string",
-						"selectorId": 'country',
-						"required": true,
-						"defaultValue": {
-							"name": 'United States',
-							"value": 'US'
-						},
-						"width": 200,
-						"tooltip": "",
-						"_links": {
-							"selector": {
-								"href": '/api/selectors/country'
-							},
-						}
-					},
-					{
-						"name": "state",
-						"label": "State",
-						"dataType": "selector",
-						"width": 200,
-						"tooltip": "",
-						"selectorId": 'state',
-						"linkedField": "countryCode",
-						"required": true,
-						"readOnlyCondition": "country=isnull=",
-						"multiValue": true,
-						"_links": {
-							"selector": {
-								"href": '/api/selectors/state'
-							},
-						}
-					},
-					{
-						"name": "city",
-						"label": "City",
-						"dataType": "string",
-						"width": 200,
-						"tooltip": "",
-						"readOnlyCondition": "country=isnull=",
-					},
-					{
-						"name": "zipCode",
-						"label": "Zip",
-						"dataType": "string",
-						"length": 10,
-						"tooltip": "",
-						"readOnlyCondition": "country=isnull=",
-						"requiredCondition": "state=has=Quebec",
-					}
-				]
-			},
-			{
-				"title": "Contacts",
-				"fields": [
-					{
-						"name": "email",
-						"label": "Email",
-						"dataType": "email",
-						"favorite": true,
-						"minLength": 5,
-						"maxLength": 30,
-						"width": 100,
-						"tooltip": ""
-					},
-					{
-						"name": "phone",
-						"label": "Phone",
-						"dataType": "string",
-						"required": true,
-						"favorite": true,
-						"minLength": 7,
-						"maxLength": 20,
-						"multiValue": true,
-						"width": 100,
-						"tooltip": ""
-					}
-				]
-			},
+                        "fullWidth": true,
+                        "required": true,
+                        "tooltip": "Enter Job Title"
+                    },
+                ],
+            },
+            {
+                "title": "Address",
+                "fields": [
+                    {
+                        "name": "country",
+                        "label": "Country",
+                        "dataType": "string",
+                        "selectorId": 'country',
+                        "required": true,
+                        "defaultValue": {
+                            "name": 'United States',
+                            "value": 'US'
+                        },
+                        "width": 200,
+                        "tooltip": "",
+                        "_links": {
+                            "selector": {
+                                "href": '/api/selectors/country'
+                            },
+                        }
+                    },
+                    {
+                        "name": "state",
+                        "label": "State",
+                        "dataType": "selector",
+                        "width": 200,
+                        "tooltip": "",
+                        "selectorId": 'state',
+                        "linkedField": "countryCode",
+                        "required": true,
+                        "readOnlyCondition": "country=isnull=",
+                        "multiValue": true,
+                        "_links": {
+                            "selector": {
+                                "href": '/api/selectors/state'
+                            },
+                        }
+                    },
+                    {
+                        "name": "city",
+                        "label": "City",
+                        "dataType": "string",
+                        "width": 200,
+                        "tooltip": "",
+                        "readOnlyCondition": "country=isnull=",
+                    },
+                    {
+                        "name": "zipCode",
+                        "label": "Zip",
+                        "dataType": "string",
+                        "length": 10,
+                        "tooltip": "",
+                        "readOnlyCondition": "country=isnull=",
+                        "requiredCondition": "state=has=Quebec",
+                    }
+                ]
+            },
+            {
+                "title": "Contacts",
+                "fields": [
+                    {
+                        "name": "email",
+                        "label": "Email",
+                        "dataType": "email",
+                        "favorite": true,
+                        "minLength": 5,
+                        "maxLength": 30,
+                        "width": 100,
+                        "tooltip": ""
+                    },
+                    {
+                        "name": "phone",
+                        "label": "Phone",
+                        "dataType": "string",
+                        "required": true,
+                        "favorite": true,
+                        "minLength": 7,
+                        "maxLength": 20,
+                        "multiValue": true,
+                        "width": 100,
+                        "tooltip": ""
+                    }
+                ]
+            },
 
 			{
 				"title": "Other",
@@ -1250,29 +1417,29 @@ module.exports = {
 								"value": "3"
 							}
 						]
-					},
+                        },
 				]
 			},
 
-			{
-				"title": "Engineering Support Documentation andCertification",
-				"expanded": true,
-				"fields": [
-					{
-						"name": "part5Title",
-						"defaultValue": '[{"children":[{"text":"Certain types of projects require documentation of engineering design. If you answer yes to questions 1 or 2 below, you must submit a completed "},{"type":"link","url":"https://portal.ct.gov/-/media/DEEP/Permits_and_Licenses/Land_Use_Permits/LWRD/engineerreportcoverpdf.pdf?la=en","children":[{"text":"Engineering Report Cover Sheet","bold":true}]},{"text":" (DEEP-LWRD-APP-001R) as Attachment 18 along with the relevant engineering report(s)."}]}]',
-						"dataType": "rtftext",
-						"fullWidth": true
-					},
-					{
-						"name": "part5Title.1",
-						"label": '1. Does the proposed activity include engineered structures such as bridges, culverts, stormwater management systems, detention basins, and/or flood & erosion control structures?',
-						"dataType": "choices",
-						/*
-												"inline": true,
-						*/
-						"fullWidth": true,
-						"ui": "rtf",
+            {
+                "title": "Engineering Support Documentation and Certification",
+                "expanded": true,
+                "fields": [
+                    {
+                        "name": "part5Title",
+                        "defaultValue": '[{"children":[{"text":"Certain types of projects require documentation of engineering design. If you answer yes to questions 1 or 2 below, you must submit a completed "},{"type":"link","url":"https://portal.ct.gov/-/media/DEEP/Permits_and_Licenses/Land_Use_Permits/LWRD/engineerreportcoverpdf.pdf?la=en","children":[{"text":"Engineering Report Cover Sheet","bold":true}]},{"text":" (DEEP-LWRD-APP-001R) as Attachment 18 along with the relevant engineering report(s)."}]}]',
+                        "dataType": "rtftext",
+                        "fullWidth": true
+                    },
+                    {
+                        "name": "part5Title.1",
+                        "label": '1. Does the proposed activity include engineered structures such as bridges, culverts, stormwater management systems, detention basins, and/or flood & erosion control structures?',
+                        "dataType": "choices",
+                        /*
+                                                "inline": true,
+                        */
+                        "fullWidth": true,
+                        "ui": "rtf",
 						"options": [
 							{
 								"name": "yes",
@@ -1313,7 +1480,8 @@ module.exports = {
 						"inline": true,
 						"multiValue": true,
 						"fullWidth": true,
-						"readOnlyCondition": "part5Title.2!==yes",
+						"hiddenCondition": "part5Title.2!==yes",
+						"required": true,
 						"ui": "rtf",
 						"options": [
 							{
@@ -1368,74 +1536,151 @@ module.exports = {
 						],
 						"helperText": '[{"children":[{"text":"Please make sure Item 3., above ,documents that there are no feasible, less environmentally damaging alternatives and include Attachment 18, Engineering Report Cover Sheet. Also, the municipality must forward the related Coastal Site Plan Review to LWRD. See "},{"type":"link","url":"https://portal.ct.gov/-/media/DEEP/Permits_and_Licenses/Land_Use_Permits/LWRD/LWRDinstpdf#Page=5.pdf?la=en","children":[{"text":"LWRD Application Instructions","bold":true,"color":"#004dcf"}]},{"text":" for further guidance."}]}]'
 					},
+                ]
+            },
 
+            {
+                "title": "Relations",
+                "expanded": false,
+                "fields": [
 
-				]
-			},
+                    {
+                        "name": "related",
+                        "label": 'Related Users',
+                        "dataType": "table",
+                        "multiValue": true,
+                        "fullWidth": true,
+						"required": true,
 
-			{
-				"title": "System",
-				"fields": [
-					{
-						"name": "id",
-						"label": "Id",
-						"dataType": "string",
-						"width": 100,
-						"hidden": true,
-						"tooltip": ""
-					},
-				]
-			}
-		],
-		"_links": {
-			"self": {
-				"href": "/api/config/components/usersViewFieldset0",
-				"type": "application/json"
-			}
-		}
-	},
-	"usersViewFieldset1": {
-		"header": [
-			{
-				"name": "fullName",
-				"label": "Name",
-				"dataType": "string",
-			},
-			{
-				"name": "gender",
-				"label": "Gender",
-				"dataType": "string",
-			},
-			{
-				"name": "dob",
-				"label": "Date of Birth",
-				"dataType": "date",
-			},
-			{
-				"name": "salary",
-				"label": "Salary",
-				"dataType": "number",
-				"format": "$+1,000.00",
-			},
-		],
-		"fields": [
-			{
-				"name": "fullName",
-				"label": "Name",
-				"dataType": "string",
-				"favorite": true,
-				"width": 200,
-				"required": true,
-				"tooltip": ""
-			},
-			{
-				"name": "retire",
-				"label": "Retired",
-				"dataType": "boolean",
-				"required": true,
-				"favorite": true,
-				"tooltip": ""
-			},
+                        "fieldset": { //also "fieldset" as a link is supported
+                            "fields": [
+                                {
+                                    "name": "firstName",
+                                    "label": "First Name",
+                                    "dataType": "string",
+                                    "favorite": true,
+                                    "required": true,
+                                    "tooltip": "",
+                                    "header": "User Name"
+                                },
+                                {
+                                    "name": "lastName",
+                                    "label": "Last Name",
+                                    "dataType": "string",
+                                    "favorite": true,
+                                    "required": true,
+                                    "tooltip": "",
+                                    "header": "User Name"
+                                },
+								{
+									"name": "gender",
+									"dataType": "select",
+									"label": "Gender",
+									"multiValue": false,
+									"defaultValue": "Female",
+									"options": [{"name": "Male", "value": "Male"}, {"name": "Female", "value": "Female"}]
+								},
+
+                                {
+                                    "name": "email",
+                                    "label": "Email",
+                                    "dataType": "email",
+                                    "tooltip": "",
+                                },
+                                {
+                                    "name": "dob",
+                                    "label": "Date of Birth",
+                                    "dataType": "date",
+                                    "format": "m/d/Y",
+                                    "tooltip": ""
+                                },
+                                {
+                                    "name": "age",
+                                    "label": "Age",
+                                    "dataType": "int",
+                                    "tooltip": "",
+                                },
+                                {
+                                    "name": "phone",
+                                    "label": "Phone",
+                                    "dataType": "string",
+                                    "tooltip": "",
+                                }
+                            ],
+                            "_links": {
+                                "self": {
+                                    "href": "/api/config/components/RelatedUsersTableFieldSet",
+                                    "type": "application/json"
+                                }
+                            }
+                        }
+                    },
+                ]
+            },
+
+            {
+                "title": "System",
+                "fields": [
+                    {
+                        "name": "id",
+                        "label": "Id",
+                        "dataType": "string",
+                        "width": 100,
+                        "hidden": true,
+                        "tooltip": ""
+                    },
+                ]
+            }
+        ],
+        "_links": {
+            "self": {
+                "href": "/api/config/components/usersViewFieldset0",
+                "type": "application/json"
+            }
+        }
+    },
+    "usersViewFieldset1": {
+        "header": [
+            {
+                "name": "fullName",
+                "label": "Name",
+                "dataType": "string",
+            },
+            {
+                "name": "gender",
+                "label": "Gender",
+                "dataType": "string",
+            },
+            {
+                "name": "dob",
+                "label": "Date of Birth",
+                "dataType": "date",
+            },
+            {
+                "name": "salary",
+                "label": "Salary",
+                "dataType": "number",
+                "format": "$+1,000.00",
+            },
+        ],
+        "fields": [
+            {
+                "name": "fullName",
+                "label": "Name",
+                "dataType": "string",
+                "favorite": true,
+                "width": 200,
+                "required": true,
+                "tooltip": ""
+            },
+            {
+                "name": "retire",
+                "label": "Retired",
+                "dataType": "boolean",
+                "required": true,
+                "favorite": true,
+                "tooltip": ""
+            },
 
 			/*{
 				"name": "file1",
@@ -1461,337 +1706,338 @@ module.exports = {
 				"tooltip": "Please attach your application form (if available)"
 			},*/
 
-			{
-				"name": "fileApplication",
-				"label": "Application page",
-				"dataType": "file",
-				"favorite": false,
-				"required": false,
-				"allowedExtensions": null,
-				"multiValue": false,
-				"fullWidth": true,
-				"tooltip": "Please attach your application form (if available)"
-			},
+            {
+                "name": "fileApplication",
+                "label": "Application page",
+                "dataType": "file",
+                "favorite": false,
+                "required": false,
+                "allowedExtensions": null,
+                "multiValue": false,
+                "fullWidth": true,
+                "tooltip": "Please attach your application form (if available)"
+            },
 
-			/*{
-				"name": "fileUnlim",
-				"label": "Files unlimited",
-				"dataType": "file",
-				"favorite": false,
-				"required": false,
-				"multiValue": true,
-				"fullWidth": true,
-				"tooltip": "Please attach your application form (if available)"
-			},*/
+            /*{
+                "name": "fileUnlim",
+                "label": "Files unlimited",
+                "dataType": "file",
+                "favorite": false,
+                "required": false,
+                "multiValue": true,
+                "fullWidth": true,
+                "tooltip": "Please attach your application form (if available)"
+            },*/
 
-			{
-				"name": "gender",
-				"label": "Gender",
-				"dataType": "select",
-				"options": [{"name": "Male", "value": "Male"}, {"name": "Female", "value": "Female"}],
-				"required": true,
-				"favorite": true,
-				"width": 100,
-				"tooltip": ""
-			},
-			{
-				"name": "dob",
-				"label": "Date of Birth",
-				"dataType": "date",
-				"favorite": true,
-				"format": "m/d/Y",
-				"width": 100,
-				"tooltip": ""
-			},
-			{
-				"name": "age",
-				"label": "Age",
-				"dataType": "int",
-				"minValue": 14,
-				"required": true,
-				"tooltip": ""
-			},
-			{
-				"name": "email",
-				"label": "Email",
-				"dataType": "email",
-				"favorite": true,
-				"width": 100,
-				"tooltip": ""
-			},
-			{
-				"name": "phone",
-				"label": "Phone",
-				"dataType": "string",
-				"favorite": true,
-				"multiValue": true,
-				"width": 100,
-				"tooltip": ""
-			},
-			{
-				"name": "companyName",
-				"label": "Company",
-				"dataType": "string",
-				"width": 200,
-				"tooltip": ""
-			},
-			{
-				"name": "salary",
-				"label": "Salary",
-				"dataType": "number",
-				"favorite": true,
-				"format": "$+1,000.00",
-			},
-			{
-				"name": "jobArea",
-				"label": "Industry",
-				"dataType": "string",
-				"width": 200,
-				"tooltip": ""
-			},
-			{
-				"name": "jobType",
-				"label": "Job",
-				"dataType": "string",
-				"width": 200,
-				"tooltip": ""
-			},
-			{
-				"name": "country",
-				"label": "Country",
-				"dataType": "string",
-				"selectorId": 'country',
-				"defaultValue": {
-					"name": 'United States',
-					"value": 'US'
-				},
-				"width": 200,
-				"tooltip": "",
-				"_links": {
-					"selector": {
-						"href": '/api/selectors/country'
-					},
-				}
-			},
-			{
-				"name": "state",
-				"label": "State",
-				"dataType": "string",
-				"width": 200,
-				"tooltip": "",
-				"selectorId": 'state',
-				"linkedField": "countryCode",
-				"multiValue": true,
-				"_links": {
-					"selector": {
-						"href": '/api/selectors/state'
-					},
-				}
-			},
-			{
-				"name": "city",
-				"label": "City",
-				"dataType": "string",
-				"width": 200,
-				"tooltip": ""
-			},
-			{
-				"name": "zipCode",
-				"label": "Zip",
-				"dataType": "string",
-				"length": 10,
-				"tooltip": ""
-			},
+            {
+                "name": "gender",
+                "label": "Gender",
+                "dataType": "select",
+                "options": [{"name": "Male", "value": "Male"}, {"name": "Female", "value": "Female"}],
+                "required": true,
+                "favorite": true,
+                "width": 100,
+                "tooltip": ""
+            },
+            {
+                "name": "dob",
+                "label": "Date of Birth",
+                "dataType": "date",
+                "favorite": true,
+                "format": "m/d/Y",
+                "width": 100,
+                "tooltip": ""
+            },
+            {
+                "name": "age",
+                "label": "Age",
+                "dataType": "int",
+                "minValue": 14,
+                "required": true,
+                "tooltip": ""
+            },
+            {
+                "name": "email",
+                "label": "Email",
+                "dataType": "email",
+                "favorite": true,
+                "width": 100,
+                "tooltip": ""
+            },
+            {
+                "name": "phone",
+                "label": "Phone",
+                "dataType": "string",
+                "favorite": true,
+                "multiValue": true,
+                "width": 100,
+                "tooltip": ""
+            },
+            {
+                "name": "companyName",
+                "label": "Company",
+                "dataType": "string",
+                "width": 200,
+                "tooltip": ""
+            },
+            {
+                "name": "salary",
+                "label": "Salary",
+                "dataType": "number",
+                "favorite": true,
+                "format": "$+1,000.00",
+            },
+            {
+                "name": "jobArea",
+                "label": "Industry",
+                "dataType": "string",
+                "width": 200,
+                "tooltip": ""
+            },
+            {
+                "name": "jobType",
+                "label": "Job",
+                "dataType": "string",
+                "width": 200,
+                "tooltip": ""
+            },
+            {
+                "name": "country",
+                "label": "Country",
+                "dataType": "string",
+                "selectorId": 'country',
+                "defaultValue": {
+                    "name": 'United States',
+                    "value": 'US'
+                },
+                "width": 200,
+                "tooltip": "",
+                "_links": {
+                    "selector": {
+                        "href": '/api/selectors/country'
+                    },
+                }
+            },
+            {
+                "name": "state",
+                "label": "State",
+                "dataType": "string",
+                "width": 200,
+                "tooltip": "",
+                "selectorId": 'state',
+                "linkedField": "countryCode",
+                "multiValue": true,
+                "_links": {
+                    "selector": {
+                        "href": '/api/selectors/state'
+                    },
+                }
+            },
+            {
+                "name": "city",
+                "label": "City",
+                "dataType": "string",
+                "width": 200,
+                "tooltip": ""
+            },
+            {
+                "name": "zipCode",
+                "label": "Zip",
+                "dataType": "string",
+                "length": 10,
+                "tooltip": ""
+            },
 
-			/*{
-				"name": "fileDA",
-				"label": "Files DA",
-				"dataType": "file",
-				"variant": "droparea",
-				"favorite": false,
-				"required": true,
-				"multiValue": false,
-				"allowedExtensions": ["png", "jpg", "bmp"],
-				"maximumSize": 10000000, // 10 Mb
-				"tooltip": "Please attach your application form (if available)"
-			},
-			{
-				"name": "fileMultiDA",
-				"label": "Files Mutli DA",
-				"dataType": "file",
-				"variant": "droparea",
-				"favorite": false,
-				"required": true,
-				"multiValue": true,
-				"limit": 3,
-				"allowedExtensions": ["png", "jpg", "bmp"],
-				"maximumSize": 10000000, // 10 Mb
-				"fullWidth": true,
-				"tooltip": "Please attach your application form (if available)"
-			},*/
+            /*{
+                "name": "fileDA",
+                "label": "Files DA",
+                "dataType": "file",
+                "variant": "droparea",
+                "favorite": false,
+                "required": true,
+                "multiValue": false,
+                "allowedExtensions": ["png", "jpg", "bmp"],
+                "maximumSize": 10000000, // 10 Mb
+                "tooltip": "Please attach your application form (if available)"
+            },
+            {
+                "name": "fileMultiDA",
+                "label": "Files Mutli DA",
+                "dataType": "file",
+                "variant": "droparea",
+                "favorite": false,
+                "required": true,
+                "multiValue": true,
+                "limit": 3,
+                "allowedExtensions": ["png", "jpg", "bmp"],
+                "maximumSize": 10000000, // 10 Mb
+                "fullWidth": true,
+                "tooltip": "Please attach your application form (if available)"
+            },*/
 
-			{
-				"name": "id",
-				"label": "Id",
-				"dataType": "string",
-				"width": 100,
-				"readOnly": true,
-				"hidden": true,
-				"tooltip": ""
-			},
-		],
-		"_links": {
-			"self": {
-				"href": "/api/config/components/usersViewFieldset1",
-				"type": "application/json"
-			}
-		}
-	},
-	"documentsCheckin0": {
-		"id": "documentsCheckin0",
-		"resourceName": "documents",
-		"resourceType": "Employee",
-		"viewType": "CheckIn",
-		"tabs": [{
-			"id": "1",
-			"title": "Details",
-			"tooltip": "Employee Properties",
-			"type": "Details",
-			"fieldSetId": "documentsCheckinFieldset0",
-			"_links": {
-				"root": {
-					"href": "/api/config/components/documentsCheckin0",
-					"type": "application/json"
-				},
-				"self": {
-					"href": "/api/config/components/documentsCheckin0/tabs/1",
-					"type": "application/json"
-				},
-				"actions": {
-					"href": "/api/config/components/documentsCheckin0/tabs/1/actions",
-					"type": "application/json"
-				},
-				"fieldset": {
-					"href": "/api/config/components/documentsCheckinFieldset0",
-					"type": "application/json"
-				}
-			}
-		}],
-		"_links": {
-			"self": {
-				"href": "/api/config/components/documentsCheckin0",
-				"type": "application/json"
-			},
-			"header": {
-				"href": "/api/config/components/documentsCheckin0/header",
-				"type": "application/json"
-			}
-		}
-	},
-	"documentsCheckinFieldset0": {
-		"fields": [
-			{
-				"name": "country",
-				"label": "Country",
-				"dataType": "string",
-				"selectorId": 'country',
-				"defaultValue": {
-					"name": 'United States',
-					"value": 'US'
-				},
-				"width": 200,
-				"tooltip": "",
-				"_links": {
-					"selector": {
-						"href": '/api/selectors/country'
-					},
-				}
-			},
-			{
-				"name": "state",
-				"label": "State",
-				"dataType": "string",
-				"width": 200,
-				"tooltip": "",
-				"selectorId": 'state',
-				"linkedField": "countryCode",
-				"multiValue": true,
-				"_links": {
-					"selector": {
-						"href": '/api/selectors/state'
-					},
-				}
-			},
-			{
-				"name": "id",
-				"label": "Id",
-				"dataType": "string",
-				"width": 100,
-				"readOnly": true,
-				"tooltip": ""
-			}
-		],
-		"sections": [{
-			"title": "Contacts",
-			"expanded": false,
-			"fields": [
-				{
-					"name": "email",
-					"label": "Email",
-					"dataType": "email",
-					"width": 100,
-					"tooltip": ""
-				},
-				{
-					"name": "phone",
-					"label": "Phone",
-					"dataType": "string",
-					"multiValue": true,
-					"width": 100,
-					"tooltip": ""
-				}
-			]
-		}, {
-			"title": "Personal",
-			"expanded": false,
-			"fields": [
-				{
-					"name": "fullName",
-					"label": "Name",
-					"dataType": "string",
-					"width": 200,
-					"required": true,
-					"tooltip": ""
-				},
-				{
-					"name": "gender",
-					"label": "Gender",
-					"dataType": "string",
-					"width": 100,
-					"tooltip": ""
-				},
-				{
-					"name": "dob",
-					"label": "Date of Birth",
-					"dataType": "datetime",
-					"width": 100,
-					"tooltip": ""
-				},
-				{
-					"name": "age",
-					"label": "Age",
-					"dataType": "int",
-					"minValue": 14,
-					"required": true,
-					"tooltip": ""
-				}
-			]
-		}],
-		"_links": {
-			"self": {
-				"href": "/api/config/components/usersViewFieldset0",
-				"type": "application/json"
-			}
-		}
-	},
+            {
+                "name": "id",
+                "label": "Id",
+                "dataType": "string",
+                "width": 100,
+                "readOnly": true,
+                "hidden": true,
+                "tooltip": ""
+            },
+        ],
+        "_links": {
+            "self": {
+                "href": "/api/config/components/usersViewFieldset1",
+                "type": "application/json"
+            }
+        }
+    },
+
+    "documentsCheckin0": {
+        "id": "documentsCheckin0",
+        "resourceName": "documents",
+        "resourceType": "Employee",
+        "viewType": "CheckIn",
+        "tabs": [{
+            "id": "1",
+            "title": "Details",
+            "tooltip": "Employee Properties",
+            "type": "Details",
+            "fieldSetId": "documentsCheckinFieldset0",
+            "_links": {
+                "root": {
+                    "href": "/api/config/components/documentsCheckin0",
+                    "type": "application/json"
+                },
+                "self": {
+                    "href": "/api/config/components/documentsCheckin0/tabs/1",
+                    "type": "application/json"
+                },
+                "actions": {
+                    "href": "/api/config/components/documentsCheckin0/tabs/1/actions",
+                    "type": "application/json"
+                },
+                "fieldset": {
+                    "href": "/api/config/components/documentsCheckinFieldset0",
+                    "type": "application/json"
+                }
+            }
+        }],
+        "_links": {
+            "self": {
+                "href": "/api/config/components/documentsCheckin0",
+                "type": "application/json"
+            },
+            "header": {
+                "href": "/api/config/components/documentsCheckin0/header",
+                "type": "application/json"
+            }
+        }
+    },
+    "documentsCheckinFieldset0": {
+        "fields": [
+            {
+                "name": "country",
+                "label": "Country",
+                "dataType": "string",
+                "selectorId": 'country',
+                "defaultValue": {
+                    "name": 'United States',
+                    "value": 'US'
+                },
+                "width": 200,
+                "tooltip": "",
+                "_links": {
+                    "selector": {
+                        "href": '/api/selectors/country'
+                    },
+                }
+            },
+            {
+                "name": "state",
+                "label": "State",
+                "dataType": "string",
+                "width": 200,
+                "tooltip": "",
+                "selectorId": 'state',
+                "linkedField": "countryCode",
+                "multiValue": true,
+                "_links": {
+                    "selector": {
+                        "href": '/api/selectors/state'
+                    },
+                }
+            },
+            {
+                "name": "id",
+                "label": "Id",
+                "dataType": "string",
+                "width": 100,
+                "readOnly": true,
+                "tooltip": ""
+            }
+        ],
+        "sections": [{
+            "title": "Contacts",
+            "expanded": false,
+            "fields": [
+                {
+                    "name": "email",
+                    "label": "Email",
+                    "dataType": "email",
+                    "width": 100,
+                    "tooltip": ""
+                },
+                {
+                    "name": "phone",
+                    "label": "Phone",
+                    "dataType": "string",
+                    "multiValue": true,
+                    "width": 100,
+                    "tooltip": ""
+                }
+            ]
+        }, {
+            "title": "Personal",
+            "expanded": false,
+            "fields": [
+                {
+                    "name": "fullName",
+                    "label": "Name",
+                    "dataType": "string",
+                    "width": 200,
+                    "required": true,
+                    "tooltip": ""
+                },
+                {
+                    "name": "gender",
+                    "label": "Gender",
+                    "dataType": "string",
+                    "width": 100,
+                    "tooltip": ""
+                },
+                {
+                    "name": "dob",
+                    "label": "Date of Birth",
+                    "dataType": "datetime",
+                    "width": 100,
+                    "tooltip": ""
+                },
+                {
+                    "name": "age",
+                    "label": "Age",
+                    "dataType": "int",
+                    "minValue": 14,
+                    "required": true,
+                    "tooltip": ""
+                }
+            ]
+        }],
+        "_links": {
+            "self": {
+                "href": "/api/config/components/usersViewFieldset0",
+                "type": "application/json"
+            }
+        }
+    },
 };

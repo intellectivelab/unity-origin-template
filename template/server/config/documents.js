@@ -23,6 +23,53 @@ module.exports = {
         }
     },
 
+    "DocumentSearchTemplate_Female": {
+        "id": "DocumentSearchTemplate_Female",
+        "title": "Female",
+        "hidden": false,
+        "_links": {
+            "self": {
+                "href": "/api/config/components/DocumentSearchTemplate_Female",
+                "type": "application/json"
+            },
+            "criteria": {
+                "href": "/api/config/components/usersSearchCriteria_Female",
+                "type": "application/json"
+            },
+            "grid": {
+                "href": "/api/config/components/documents",
+                "type": "application/json"
+            },
+            "query": {
+                "href": "/api/users/query",
+                "type": "application/json"
+            },
+        }
+    },
+    "DocumentSearchTemplate_Male": {
+        "id": "DocumentSearchTemplate_Male",
+        "title": "Male",
+        "hidden": false,
+        "_links": {
+            "self": {
+                "href": "/api/config/components/DocumentSearchTemplate_Male",
+                "type": "application/json"
+            },
+            "criteria": {
+                "href": "/api/config/components/usersSearchCriteria_Male",
+                "type": "application/json"
+            },
+            "grid": {
+                "href": "/api/config/components/documents",
+                "type": "application/json"
+            },
+            "query": {
+                "href": "/api/users/query",
+                "type": "application/json"
+            },
+        }
+    },
+
     "documents": {
         "id": "documents",
         "title": "Documents",
