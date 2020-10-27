@@ -58,6 +58,12 @@ const userWithLinks = (user) => {
 		},
 		"attachments": {
 			href: `/api/users/${user.gender}/users`
+		},
+		"delete": {
+			href: "/api/data/details/users/" + user.id
+		},
+		detach: {
+			href: "/api/casetasks/detach"
 		}
 	};
 
@@ -998,6 +1004,14 @@ module.exports = function (app) {
 			const {title} = req.body;
 			console.log("Attach: title=", title);
 		}
+		setTimeout(() => {
+			res.send({});
+		}, respTime());
+	});
+
+	app.delete('/api/casetasks/detach', (req, res) => {
+		const {docId} = req.body;
+		console.log("Detach: docId=", docId);
 		setTimeout(() => {
 			res.send({});
 		}, respTime());

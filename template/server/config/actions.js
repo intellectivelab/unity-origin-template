@@ -158,6 +158,23 @@ module.exports = {
                 }
             }
         },
+		{
+			"name": "delete",
+			"label": "Delete",
+			"tooltip": "Delete",
+			"type": "delete",
+			"resourceName": "documents",
+			"_links": {
+				"root": {
+					"href": "/api/config/actions",
+					"type": "application/json"
+				},
+				"self": {
+					"href": "/api/config/actions/delete",
+					"type": "application/json"
+				}
+			}
+		},
 	],
 	"casetasks": [
 		{
@@ -957,6 +974,23 @@ module.exports = {
 				},
 				"view": {
 					"href": "/api/config/components/usersView0", 
+					"type": "application/json"
+				}
+			}
+		},
+		{
+			"name": "detach",
+			"label": "Detach",
+			"tooltip": "Detach",
+			"type": "detach",
+			"resourceName": "documents",
+			"_links": {
+				"root": {
+					"href": "/api/config/actions",
+					"type": "application/json"
+				},
+				"self": {
+					"href": "/api/config/actions/detach",
 					"type": "application/json"
 				}
 			}
