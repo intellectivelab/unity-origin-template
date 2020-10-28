@@ -567,6 +567,14 @@ module.exports = function (app) {
 		}
 	});
 
+	app.post('/api/documents/list', (req, res) => {
+		const {typedIds = []} = req.body;
+
+		const ids = typedIds.map(({id}) => id);
+
+		setTimeout(() => res.send(users.filter(user => ids.includes(user.id))), respTime());
+	});
+
 	app.post('/api/users/list', (req, res) => {
 		const {typedIds = []} = req.body;
 
