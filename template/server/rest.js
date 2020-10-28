@@ -583,6 +583,18 @@ module.exports = function (app) {
 		setTimeout(() => res.send(users.filter(user => ids.includes(user.id))), respTime());
 	});
 
+	app.post('/api/cases/list', (req, res) => {
+		const {typedIds = []} = req.body;
+
+		const ids = typedIds.map(({id}) => id);
+
+		setTimeout(() => {
+			res.send(cases
+				.filter(task => ids.includes(task.id))
+				.map(withCasetaskRecordLinks));
+		}, respTime());
+	});
+
 	app.post('/api/casetasks/list', (req, res) => {
 		const {typedIds = []} = req.body;
 
