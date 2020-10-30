@@ -18,6 +18,7 @@ const {v4: uuidv4} = require('uuid');
 const idLens = R.lensProp("id");
 const resourceNameLens = R.lensProp("resourceName");
 const resourceTypeLens = R.lensProp("resourceType");
+const scopeLens = R.lensProp("scope");
 
 const eventIdLens = R.lensProp("eventId");
 
@@ -247,6 +248,7 @@ const users = JSON.parse(fs.readFileSync(__dirname + '/data/users.json'))
 	.map(user => R.over(titleLens, () => user.fullName, user))
 	.map(user => R.over(resourceNameLens, () => 'documents', user))
 	.map(user => R.over(resourceTypeLens, () => 'User', user))
+	.map(user => R.over(scopeLens, () => 'Major', user))
 	.map(user => R.over(pathLens, () => R.view(pathLens, folderEntries[Math.floor(Math.random() * folderEntries.length)]), user))
 	.map(user => R.over(relatedLens, ()=> randomUsers(R.add(Math.floor(Math.random() * 3), 1))
 		.map(related => R.over(idLens, () => uuidv4(), related)), user))
