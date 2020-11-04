@@ -2,7 +2,7 @@ import React from 'react';
 
 import _url from "url";
 
-import {DefaultThemeProvider, FactoryContextProvider, PerspectiveContainer} from '@intellective/core';
+import {DefaultDashboardBuilder, DefaultThemeProvider, FactoryContextProvider, PerspectiveContainer, registerBuilder} from '@intellective/core';
 
 import DomainActionFactory from "./factories/DomainActionFactory";
 import DomainComponentFactory from "./factories/DomainComponentFactory";
@@ -12,6 +12,8 @@ import DomainPalettes from "./themes/DomainPalettes";
 import DomainThemeBuilder from "./themes/DomainThemeBuilder";
 
 const App = () => {
+	registerBuilder('dashboard', DefaultDashboardBuilder);
+
 	const urlObj = _url.parse(window.location.search, true);
 	const searchParams = urlObj.query;
 
