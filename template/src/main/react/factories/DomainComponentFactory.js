@@ -1,9 +1,9 @@
 import * as R from "ramda";
 
-import {DefaultComponentFactory, DefaultGridViewFactory} from "@intellective/core";
+import {DefaultComponentFactory} from "@intellective/core";
 
 const DomainComponentFactory = R.cond([
-	[R.propEq('type', 'grid'), DefaultGridViewFactory],
+	//put your custom code here
 ]);
 
 export default (props) => DomainComponentFactory(props) || DefaultComponentFactory(props);

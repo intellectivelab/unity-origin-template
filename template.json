@@ -8,12 +8,14 @@
       "server": "node server"
     },
     "dependencies": {
-      "@intellective/core": "2020.1.1-alpha.64",
+      "@intellective/core": "2020.1.1-alpha.74",
       "@material-ui/core": "^4.11.0",
       "@material-ui/icons": "^4.9.1",
       "@material-ui/lab": "^4.0.0-alpha.56",
       "@material-ui/styles": "^4.10.0",
-      "react-app-rewired": "latest"
+      "ramda": "^0.27.1",
+      "react-redux": "^7.2.1",
+      "react-app-rewired": "^2.1.6"
     },
     "babel": {
       "presets": [
@@ -23,7 +25,8 @@
       "plugins": [
         "@babel/plugin-proposal-class-properties",
         "@babel/plugin-proposal-object-rest-spread",
-        "@babel/plugin-transform-react-jsx"
+        "@babel/plugin-transform-react-jsx",
+        "@babel/plugin-transform-spread"
       ]
     }
   }
