@@ -395,6 +395,7 @@ module.exports = {
 				"sortable": true,
 			}
 		],
+        "ui": "infinite",
 		"favorite": ["fullName"],
 		"default": ["fullName", 'companyName', "jobArea", "jobType", "gender", "age", 'retire', 'mimeType'],
 		"sorting": [

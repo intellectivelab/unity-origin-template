@@ -243,6 +243,13 @@ const treeReducer = (parentPath, parentId) => (acc, _item) => {
 const folders = JSON.parse(fs.readFileSync(__dirname + '/data/folders.json')).reduce(treeReducer("/"), {});
 const folderEntries = Object.values(folders);
 
+const userWithLongerName = (user) => {
+   if (Math.random() < 0.2) {
+     user.fullName += ' at '+user.companyName+' in '+user.city;
+   }
+   return user;
+};
+
 const randomUsers = (cnt = 10, users = JSON.parse(fs.readFileSync(__dirname + '/data/users.json')),
 					 props = ['firstName', 'lastName', 'gender', 'email', 'dob', 'age', 'phone']) => {
 	const indices = R.times(()=>Math.floor(Math.random() * users.length), cnt);
@@ -256,6 +263,7 @@ const users = JSON.parse(fs.readFileSync(__dirname + '/data/users.json'))
 	.map(user => R.over(resourceTypeLens, () => 'User', user))
 	.map(user => R.over(scopeLens, () => 'Major', user))
 	.map(user => R.over(pathLens, () => R.view(pathLens, folderEntries[Math.floor(Math.random() * folderEntries.length)]), user))
+	.map(userWithLongerName)
 	.map(user => R.over(relatedLens, ()=> randomUsers(R.add(Math.floor(Math.random() * 3), 1))
 		.map(related => R.over(idLens, () => uuidv4(), related)), user))
 	.map(user => userWithLinks(user));

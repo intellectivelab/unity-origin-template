@@ -228,6 +228,7 @@ module.exports = {
                 "sortable": true,
             }
         ],
+        "ui": "paging",
         "favorite": ["fullName"],
         "default": ["fullName", 'path', 'mimeType', 'dob', 'companyName'],
         "sorting": [
