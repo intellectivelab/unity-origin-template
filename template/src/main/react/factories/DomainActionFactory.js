@@ -2,23 +2,24 @@ import React from "react";
 
 import * as R from "ramda";
 
-import {CreateCaseWithAttachments as CreateCaseAction, DefaultActionFactory, DefaultActionMapper, DefaultFormSubmitHandlerMapper} from "@intellective/core";
+import {DefaultActionFactory, DefaultActionMapper, TwoColumnsLayout} from '@intellective/core';
 
-const DomainActionMapper = R.curry((settings = {}, action) => {
-	// Add custom actions creation logic here. For example,
+const defaultSettings = {
+	fullScreen: true,
+	margin: 'dense',
+	innerMaxWidth: 'lg',
+	maxWidth: 'xl',
+	variant: 'dialog',
+	Layout: TwoColumnsLayout
+};
 
-	const isCreateAction = R.propEq('type', 'create');
-	const isCaseResource = R.propEq('resourceName', "cases");
-	const isCreateCaseAction = R.allPass([isCreateAction, isCaseResource]);
+const DomainActionMapper = R.curry((settings = {}, action) => (
+	R.cond([
+		//put your custom code here
+	])(action)
+));
 
-	return R.cond([
-		[isCreateCaseAction, R.always(CreateCaseAction(settings))],
-	])(action);
-});
-
-const DomainFormSubmitHandlerMapper = R.cond([]);
-
-export default function DomainActionFactory(defaultSettings = {}) {
+export default function DomainActionFactory(config = defaultSettings) {
 	DefaultActionFactory.call(this);
 
 	this.createAction = R.curry((action, props) => {
@@ -26,12 +27,8 @@ export default function DomainActionFactory(defaultSettings = {}) {
 
 		const {view: viewSettings = {}} = settings;
 
-		const _settings = {...defaultSettings, ...viewSettings};
+		const ActionComponent = DomainActionMapper({...config, ...viewSettings}, action) || DefaultActionMapper({...config, ...viewSettings}, action);
 
-		const ActionComponent = DomainActionMapper(_settings, action) || DefaultActionMapper(_settings, action);
-
-		return ActionComponent && <ActionComponent {...otherProps} {...action} action={action}/>;
+		return <ActionComponent {...otherProps} {...action} action={action}/>;
 	});
-
-	this.getFormSubmitHandler = (props) => DomainFormSubmitHandlerMapper(props) || DefaultFormSubmitHandlerMapper(props);
 }

@@ -18,6 +18,7 @@ const {v4: uuidv4} = require('uuid');
 const idLens = R.lensProp("id");
 const resourceNameLens = R.lensProp("resourceName");
 const resourceTypeLens = R.lensProp("resourceType");
+const scopeLens = R.lensProp("scope");
 
 const eventIdLens = R.lensProp("eventId");
 
@@ -58,6 +59,12 @@ const userWithLinks = (user) => {
 		},
 		"attachments": {
 			href: `/api/users/${user.gender}/users`
+		},
+		"delete": {
+			href: "/api/data/details/users/" + user.id
+		},
+		detach: {
+			href: "/api/casetasks/detach"
 		}
 	};
 
@@ -247,6 +254,7 @@ const users = JSON.parse(fs.readFileSync(__dirname + '/data/users.json'))
 	.map(user => R.over(titleLens, () => user.fullName, user))
 	.map(user => R.over(resourceNameLens, () => 'documents', user))
 	.map(user => R.over(resourceTypeLens, () => 'User', user))
+	.map(user => R.over(scopeLens, () => 'Major', user))
 	.map(user => R.over(pathLens, () => R.view(pathLens, folderEntries[Math.floor(Math.random() * folderEntries.length)]), user))
 	.map(user => R.over(relatedLens, ()=> randomUsers(R.add(Math.floor(Math.random() * 3), 1))
 		.map(related => R.over(idLens, () => uuidv4(), related)), user))
@@ -567,12 +575,32 @@ module.exports = function (app) {
 		}
 	});
 
+	app.post('/api/documents/list', (req, res) => {
+		const {typedIds = []} = req.body;
+
+		const ids = typedIds.map(({id}) => id);
+
+		setTimeout(() => res.send(users.filter(user => ids.includes(user.id))), respTime());
+	});
+
 	app.post('/api/users/list', (req, res) => {
 		const {typedIds = []} = req.body;
 
 		const ids = typedIds.map(({id}) => id);
 
 		setTimeout(() => res.send(users.filter(user => ids.includes(user.id))), respTime());
+	});
+
+	app.post('/api/cases/list', (req, res) => {
+		const {typedIds = []} = req.body;
+
+		const ids = typedIds.map(({id}) => id);
+
+		setTimeout(() => {
+			res.send(cases
+				.filter(task => ids.includes(task.id))
+				.map(withCasetaskRecordLinks));
+		}, respTime());
 	});
 
 	app.post('/api/casetasks/list', (req, res) => {
@@ -998,6 +1026,14 @@ module.exports = function (app) {
 			const {title} = req.body;
 			console.log("Attach: title=", title);
 		}
+		setTimeout(() => {
+			res.send({});
+		}, respTime());
+	});
+
+	app.delete('/api/casetasks/detach', (req, res) => {
+		const {docId} = req.body;
+		console.log("Detach: docId=", docId);
 		setTimeout(() => {
 			res.send({});
 		}, respTime());

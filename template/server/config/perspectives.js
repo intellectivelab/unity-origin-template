@@ -170,7 +170,6 @@ module.exports = [
                 "tooltip": "Single Template",
                 "lazy": true,
                 "default": false,
-                "builder": 'page',
                 "components": [
                     {
                         "id": "CaseSearchTemplate",

@@ -32,7 +32,7 @@ const shadows = [
 	"0px 10px 13px -6px rgba(0, 0, 0, 0.06),0px 20px 31px 3px rgba(0, 0, 0, 0.042),0px 8px 38px 7px rgba(0, 0, 0, 0.036)"
 ];
 
-const buildTheme = (options, palette = DomainPalettes.connecticut.palette) => ({
+const buildTheme = (options, palette = DomainPalettes.unity.palette) => ({
 	typography: {
 		fontSize: 14,
 		body1: {

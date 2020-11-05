@@ -1504,7 +1504,7 @@ module.exports = {
 						"inline": true,
 						"multiValue": true,
 						"fullWidth": true,
-						"hiddenCondition": "part5Title.2!==yes",
+						"hiddenCondition": "part5Title.2!=yes",
 						"required": true,
 						"ui": "rtf",
 						"options": [

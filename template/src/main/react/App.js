@@ -2,57 +2,32 @@ import React from 'react';
 
 import _url from "url";
 
-import {
-	ColumnsLayout,
-	DefaultDashboardBuilder,
-	DefaultThemeProvider,
-	FactoryContextProvider,
-	PerspectivesLoader,
-	registerBuilder,
-	ResourceViewBuilder
-} from '@intellective/core';
+import {DefaultDashboardBuilder, DefaultThemeProvider, FactoryContextProvider, PerspectiveContainer, registerBuilder} from '@intellective/core';
 
 import DomainActionFactory from "./factories/DomainActionFactory";
 import DomainComponentFactory from "./factories/DomainComponentFactory";
-import DomainThemeBuilder from "./themes/DomainThemeBuilder";
-import DomainPalettes from "./themes/DomainPalettes";
+import DomainFormFieldFactory from "./factories/FormField/DomainFormFieldFactory";
 
-const defaultViewSettings = {
-	variant: 'dialog',
-	fullScreen: true,
-	maxWidth: 'xl',
-	innerMaxWidth: 'lg',
-	margin: 'dense',
-	Layout: ColumnsLayout(2)
-};
+import DomainPalettes from "./themes/DomainPalettes";
+import DomainThemeBuilder from "./themes/DomainThemeBuilder";
 
 const App = () => {
-	registerBuilder('default', DefaultDashboardBuilder);
 	registerBuilder('dashboard', DefaultDashboardBuilder);
 
 	const urlObj = _url.parse(window.location.search, true);
 	const searchParams = urlObj.query;
 
-	if (searchParams.p && searchParams.p === 'resourceView') {
-		return (
-			<DefaultThemeProvider Builder={DomainThemeBuilder} Palettes={DomainPalettes}>
-				<FactoryContextProvider viewSettings={defaultViewSettings}
-				                        ActionFactory={DomainActionFactory}
-				                        ComponentFactory={DomainComponentFactory}>
-					<ResourceViewBuilder searchParams={searchParams}/>
-				</FactoryContextProvider>
-			</DefaultThemeProvider>
-		);
-	}
-
 	return (
-		<DefaultThemeProvider Builder={DomainThemeBuilder} Palettes={DomainPalettes}>
-			<FactoryContextProvider viewSettings={defaultViewSettings}
-			                        ActionFactory={DomainActionFactory}
-			                        ComponentFactory={DomainComponentFactory}>
-				<PerspectivesLoader title="Unity Application"
-				                    href='./api/1.0.0/config/perspectives'
-				                    searchParams={searchParams}/>
+		<DefaultThemeProvider
+			Builder={DomainThemeBuilder}
+			Palettes={DomainPalettes}
+		>
+			<FactoryContextProvider
+				ActionFactory={new DomainActionFactory()}
+				ComponentFactory={DomainComponentFactory}
+				FormFieldFactory={DomainFormFieldFactory}
+			>
+				<PerspectiveContainer searchParams={searchParams} href='./api/1.0.0/config/perspectives'/>
 			</FactoryContextProvider>
 		</DefaultThemeProvider>
 	);
