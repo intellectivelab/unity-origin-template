@@ -466,6 +466,30 @@ module.exports = {
 				"label": "Birth Date",
 				"format": 'MM/dd/yyyy'
 			},
+			{
+				name: 'mimeType',
+				dataType: 'fieldstats',
+				label: 'Mime Type',
+				ui: 'combobox',
+				"multiValue": true,
+				tooltip: "Mime Type",
+				"facets": [
+					{
+						id: "mimeType",
+						type: "TERMS",
+						field: "mimeType",
+						label: 'Mime Type',
+						dataType: 'mimeType',
+						limit: 7,
+						minCount: 1
+					}
+				],
+				"_links": {
+					"facetItems": {
+						"href": '/api/users/facets/select'
+					}
+				}
+			}
 		],
 		"sections": [
 			{
