@@ -81,7 +81,7 @@ const userWithLinks = (user) => {
 		if (file.contentType === 'application/msword') {
 			_links["office.addon"] = "/api/users/" + user.id + "/office";
 		}
-    }
+	}
 
 	const toSelector = (name, value) => ({name: name, value: value});
 
@@ -244,8 +244,10 @@ const folders = JSON.parse(fs.readFileSync(__dirname + '/data/folders.json')).re
 const folderEntries = Object.values(folders);
 
 const randomUsers = (cnt = 10, users = JSON.parse(fs.readFileSync(__dirname + '/data/users.json')),
-					 props = ['firstName', 'lastName', 'gender', 'email', 'dob', 'age', 'phone']) => {
-	const indices = R.times(()=>Math.floor(Math.random() * users.length), cnt);
+                     props = ['firstName', 'lastName', 'gender', 'email', 'dob', 'age', 'phone']) => {
+
+	const indices = R.times(() => Math.floor(Math.random() * users.length), cnt);
+
 	return indices.map(ind => users[ind]).map(R.pick(props));
 };
 
@@ -256,7 +258,7 @@ const users = JSON.parse(fs.readFileSync(__dirname + '/data/users.json'))
 	.map(user => R.over(resourceTypeLens, () => 'User', user))
 	.map(user => R.over(scopeLens, () => 'Major', user))
 	.map(user => R.over(pathLens, () => R.view(pathLens, folderEntries[Math.floor(Math.random() * folderEntries.length)]), user))
-	.map(user => R.over(relatedLens, ()=> randomUsers(R.add(Math.floor(Math.random() * 3), 1))
+	.map(user => R.over(relatedLens, () => randomUsers(R.add(Math.floor(Math.random() * 3), 1))
 		.map(related => R.over(idLens, () => uuidv4(), related)), user))
 	.map(user => userWithLinks(user));
 
@@ -265,7 +267,7 @@ const userResourceRecords = users.map(({_links = {}, ...otherProps}) => {
 	return {
 		...otherProps,
 		resourceName: 'resources',
-		resourceType: 'documents',
+		resourceType: 'User',
 		_links: {self, view},
 	};
 });
@@ -284,7 +286,7 @@ const caseTasksResourceRecords = cases.map(({_links, ...otherProps}) => {
 	return {
 		...otherProps,
 		resourceName: 'resources',
-		resourceType: 'CaseTask',
+		resourceType: 'TestCase',
 		_links: {self, view},
 	};
 });
@@ -376,6 +378,8 @@ const withCasetaskRecordLinks = record => {
 // add dynamic action links
 const withRecordLinks = (typeName, record) => {
 	switch (typeName) {
+		case "cases":
+			return withCasetaskRecordLinks(record);
 		case "casetasks":
 			return withCasetaskRecordLinks(record);
 		default:
@@ -823,15 +827,15 @@ module.exports = function (app) {
 		console.log(req.body);
 		setTimeout(() => {
 			const foundTask = cases.find(TestCondition('id==' + req.params.id));
-			if (!foundTask || foundTask.case_id % 10 == 0) 
-				res.status(500).send('Server error for Case '+req.params.id);
+			if (!foundTask || foundTask.case_id % 10 == 0)
+				res.status(500).send('Server error for Case ' + req.params.id);
 			else {
-			        const {_links, ...oldFields} = foundTask;
+				const {_links, ...oldFields} = foundTask;
 				const newFields = {...oldFields, ...req.body.caseData, case_type: req.body.caseType || foundTask.case_type, id: uuidv4()};
-			        const newCase = taskWithLinks(newFields);
+				const newCase = taskWithLinks(newFields);
 				cases.push(newCase);
 				res.send({_links: newCase._links});
-			}	
+			}
 		}, respTime());
 	});
 
@@ -1110,6 +1114,42 @@ module.exports = function (app) {
 				original: {title: testFile.fileName, mimeType: testFile.contentType, documentDescriptor: {}}
 			});
 		}, respTime());
+	});
+
+	app.get('/api/:resourceName/:resourceType/:id', function (req, res) {
+		const data = R.cond([
+			[R.propEq("resourceName", "documents"), R.always(users)],
+			[R.propEq("resourceName", "cases"), R.always(cases)],
+			[R.propEq("resourceName", "workitems"), R.always(cases)],
+			[R.allPass([R.propEq("resourceName", "resources"), R.propEq("resourceType", "User")]), R.always(users)],
+			[R.allPass([R.propEq("resourceName", "resources"), R.propEq("resourceType", "TestCase")]), R.always(cases)],
+			[R.T, []],
+		])(req.params);
+
+		const _condition = TestCondition('id==' + req.params.id);
+		const _data = data.filter(row => _condition(row));
+
+		if (R.isEmpty(_data)) {
+			res.status(404).send('Unable to find resource: ' + req.params.id);
+			return;
+		}
+		const resource = withRecordLinks(req.params.resourceName, _data[0]);
+
+		setTimeout(() => res.send(resource), respTime());
+	});
+
+	app.get('/api/workitems/:id', function (req, res) {
+		const condition = TestCondition('id==' + req.params.id);
+
+		const workitems = cases.filter(row => condition(row));
+
+		if (workitems.length > 0) {
+			const workitem = workitems[0];
+
+			setTimeout(() => res.send(withCasetaskRecordLinks(workitem)), respTime());
+		} else {
+			res.status(404).send('Sorry cant find ' + req.params.id);
+		}
 	});
 
 };
