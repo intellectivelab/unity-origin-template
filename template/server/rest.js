@@ -232,9 +232,13 @@ const safeParentPath = R.ifElse(R.endsWith('/'), R.identity, path => R.concat(pa
 const pathMapper = R.curry((path, item) => ({...R.over(pathLens, () => R.concat(safeParentPath(path), item.name), item), ...item}));
 const parentIdMapper = R.curry((parentId, item) => ({...R.over(parentIdLens, () => parentId, item), ...item}));
 const browseLinkMapper = item => ({...R.over(browseLinkLens, () => ({href: `/api/folders/browse?root=${item.path}`}), item), ...item});
+const filterValueMapper = item => ({...R.over(R.lensProp('filterValue'), () => item.path, item), ...item});
 
 const treeReducer = (parentPath, parentId) => (acc, _item) => {
-	const item = R.compose(idMapper, labelMapper, browseLinkMapper, pathMapper(parentPath), parentIdMapper(parentId))(_item);
+	const item = R.compose(
+		idMapper, labelMapper, filterValueMapper, browseLinkMapper, pathMapper(parentPath), parentIdMapper(parentId)
+	)(_item);
+
 	const {id, path, children = []} = item;
 	const traversed = children.reduce(treeReducer(path, id), {});
 	return {...acc, [id]: item, ...traversed};
