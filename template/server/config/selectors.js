@@ -13,7 +13,6 @@ module.exports = [
 			}
 		}
 	},
-
 	{
 		"name": "state",
 		"queryContext": [
@@ -31,7 +30,6 @@ module.exports = [
 			}
 		}
 	},
-
 	{
 		"name": "stateCode",
 		"queryContext": [
@@ -49,7 +47,4 @@ module.exports = [
 			}
 		}
 	}
-
-
-
 ];

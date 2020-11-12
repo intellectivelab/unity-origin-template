@@ -1916,7 +1916,6 @@ module.exports = {
             }
         }
     },
-
     "documentsCheckin0": {
         "id": "documentsCheckin0",
         "resourceName": "documents",
