@@ -1137,9 +1137,10 @@ module.exports = function (app) {
 			res.status(404).send('Unable to find resource: ' + req.params.id);
 			return;
 		}
-		const resource = withRecordLinks(req.params.resourceName, _data[0]);
 
-		setTimeout(() => res.send(resource), respTime());
+		const {_links, ...fields} = withRecordLinks(req.params.resourceName, _data[0]);
+
+		setTimeout(() => res.send({fields, _links}), respTime());
 	});
 
 	app.get('/api/workitems/:id', function (req, res) {
