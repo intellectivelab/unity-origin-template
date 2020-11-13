@@ -239,12 +239,16 @@ module.exports = function (app) {
 		const filteredData = history.filter(row => condition(row));
 
 		if (filteredData.length > 0) {
-			const {_links, ...fields} = addCaseRecordLinks(filteredData[0]);
+			const {_links, ...fields} = filteredData[0];
 
 			setTimeout(() => res.send({fields, _links}), respTime());
 		} else {
 			res.status(404).send('Sorry cant find ' + req.params.dataId);
 		}
+	});
+
+	app.put('/api/data/details/history/:dataId', function (req, res) {
+		res.send({result: "success"});
 	});
 
 	app.get('/api/data/details/comments/:dataId', function (req, res) {
