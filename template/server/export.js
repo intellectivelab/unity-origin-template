@@ -10,23 +10,16 @@ const getTestFile = (id, linkId) => {
 
 	const contentTypes = {
 		'.doc': 'application/msword',
-		'.pdf': 'application/pdf',
-		'.jpg': 'image/jpeg',
-		'.txt': 'text/plain',
-		'.tif': 'image/tiff'
+		'.pdf': 'application/pdf'
 	};
 
 	const files = [
-		'ClaimAcknowledgement.doc',
 		'ClaimLetter.doc',
-		'Note.SECURED.pdf',
-		'Foreign Investment Contracts in the Oil& Gas Sector_A Survey of.pdf',
 		'Proposal Modified.pdf',
 		'Proposal Original.pdf',
+		'ClaimAcknowledgement.doc',
 		'Request for Proposal.pdf',
-		'Les.jpg',
-		'iso_8859-1.txt',
-		'G4.TIF'
+		'Foreign Investment Contracts in the Oil& Gas Sector_A Survey of.pdf'
 	];
 
 	const contentSizes = [
@@ -42,7 +35,8 @@ const getTestFile = (id, linkId) => {
 		57300
 	];
 
-	const hashId = shortHash(id+(linkId || '0'), 10);
+	const hashId = shortHash(id + (linkId || '0'), files.length);
+
 	const fileName = files[hashId];
 	const contentType = contentTypes[getExtension(fileName)];
 	const contentSize = contentSizes[hashId];
