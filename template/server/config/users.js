@@ -442,7 +442,8 @@ module.exports = {
 					"name": "is equal to"
 				},
 				"required": true,
-				"minLength": 2
+				"minLength": 2,
+				"quickSearch": true,
 			},
 			{
 				"name": "lastName",
@@ -454,7 +455,8 @@ module.exports = {
 					"name": "contains"
 				},
 				"required": true,
-				"minLength": 2
+				"minLength": 2,
+				"quickSearch": true,
 			},
 			{
 				"name": "dob",
@@ -464,7 +466,8 @@ module.exports = {
 					"name": "is between"
 				},
 				"label": "Birth Date",
-				"format": 'MM/dd/yyyy'
+				"format": 'MM/dd/yyyy',
+				"quickSearch": true,
 			},
 			{
 				name: 'mimeType',
