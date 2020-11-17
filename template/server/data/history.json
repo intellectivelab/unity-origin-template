@@ -9,6 +9,22 @@
     },
     {
         "eventId": "{F0A73F63-0000-C22A-BB6B-22CC6BE76E02}",
+        "eventDate" : "05/08/2018 09:09 AM",
+        "eventActor" : "Bell Corkery",
+        "eventType" : "FACT",
+        "eventTitle" : "Case successfully created by copying CC_Complaint_1 case",
+        "eventAction" : 106
+    },
+    {
+        "eventId": "{F0A73F63-0000-C22A-BB6B-22CC6BE76E02}",
+        "eventDate" : "05/08/2018 09:09 AM",
+        "eventActor" : "Bell Corkery",
+        "eventType" : "FACT",
+        "eventTitle" : "Case successfully created by splitting CC_Complaint_3 case",
+        "eventAction" : 105
+    },
+    {
+        "eventId": "{F0A73F63-0000-C22A-BB6B-22CC6BE76E02}",
         "eventDate" : "05/09/2018 09:09 AM",
         "eventActor" : "Bell Corkery",
         "eventType" : "FACT",
