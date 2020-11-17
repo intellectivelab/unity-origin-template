@@ -665,6 +665,7 @@ module.exports = {
         }
     },
     "casetasksViewFieldset0": {
+        "columns": 3,
         "fields": [
             {
                 "name": "case_type",

@@ -1667,6 +1667,7 @@ module.exports = {
         }
     },
     "usersViewFieldset1": {
+        "columns": 3,
         "header": [
             {
                 "name": "fullName",
