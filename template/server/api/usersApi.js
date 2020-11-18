@@ -64,10 +64,10 @@ const addUserLinks = (user) => {
 	};
 
 	if (user.age % 2 === 1) {
-		_links["checkin"] = {"href": "/api/data/checkin/" + user.id};
+		_links["checkin"] = {"href": "/api/data/" + user.id + "/checkin"};
 		_links["cancelCheckOut"] = {"href": "/api/data/" + user.id + "/reservation/cancel"};
 	} else {
-		_links["checkout"] = {"href": "/api/data/checkout/" + user.id};
+		_links["checkout"] = {"href": "/api/data/" + user.id + "/checkout"};
 	}
 
 	const num = shortHash(user.id, 3);
