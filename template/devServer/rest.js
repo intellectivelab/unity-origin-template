@@ -1,22 +1,22 @@
 const R = require("ramda");
 const crypto = require('crypto');
 
-const unityApi = require("@intellective/unity-api-mocks");
+const unityApiMocks = require("@intellective/unity-api-mocks");
 
 const domainConfig = require("./config");
 
 const algorithm = 'des-ecb';
 const cryptoKey = Buffer.from("d0e276d0144890d3", "hex");
 
-const config = R.mergeRight(unityApi.defaultConfig, domainConfig);
+const config = R.mergeRight(unityApiMocks.defaultConfig, domainConfig);
 
 module.exports = function (app) {
-	unityApi.configApi(app, config);
-	unityApi.usersApi(app, config);
-	unityApi.contentApi(app, config);
-	unityApi.casesApi(app, config);
-	unityApi.foldersApi(app, config);
-	unityApi.selectorsApi(app, config);
+	unityApiMocks.configApi(app, config);
+	unityApiMocks.usersApi(app, config);
+	unityApiMocks.contentApi(app, config);
+	unityApiMocks.casesApi(app, config);
+	unityApiMocks.foldersApi(app, config);
+	unityApiMocks.selectorsApi(app, config);
 
 	app.get('/api/data/export', function (req, res) {
 		const file = `${__dirname}/export/export.csv`;
