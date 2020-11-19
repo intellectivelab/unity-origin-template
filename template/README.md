@@ -4,9 +4,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `yarn server`
+### `yarn mocks`
 
-Runs the Unity API mocks that comes with the react app template and allows creating UI components with zero dependencies on backend systems.<br />
+Runs the API mocks that come with the Unity React template. Using API mocks allows creating UI components with zero dependencies on backend systems.<br />
 
 By default, the server is available by [http://localhost:4000](http://localhost:4000). <br/>
 

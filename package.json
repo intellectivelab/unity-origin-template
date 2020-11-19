@@ -1,7 +1,7 @@
 {
   "name": "@intellective/cra-template-unity-origin",
   "main": "template.json",
-  "version": "2020.1.1-alpha-19",
+  "version": "2020.1.1-alpha-20",
   "description": "The base template for Unity React apps",
   "author": {
     "name": "Intellective",
@@ -20,7 +20,7 @@
     "template.json"
   ],
   "scripts": {
-    "server": "node template/devServer"
+    "mocks": "node template/mocks"
   },
   "devDependencies": {
     "@intellective/core": "2020.1.1-alpha.81",
