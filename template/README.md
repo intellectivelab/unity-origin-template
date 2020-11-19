@@ -6,14 +6,14 @@ In the project directory, you can run:
 
 ### `yarn server`
 
-Runs the mock server that comes with the react app template and allows creating UI components with zero dependencies on backend systems.<br />
+Runs the Unity API mocks that comes with the react app template and allows creating UI components with zero dependencies on backend systems.<br />
 
 By default, the server is available by [http://localhost:4000](http://localhost:4000). <br/>
 
 **Note: server requires dev dependencies to be installed.** <br/>
 
 Run the following command to install dev dependencies:
-`yarn add --dev http-proxy-middleware express body-parser faker file-loader node-rsql-parser sqlite3 uuid`
+`yarn add --dev @intellective/unity-api-mocks`
 
 ### `yarn start`
 
