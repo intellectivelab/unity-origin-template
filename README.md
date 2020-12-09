@@ -43,7 +43,11 @@ To use this template, add --template @intellective/unity-origin when creating a 
 For example:
 
 ```sh
+create-react-app my-app --template @intellective/unity-origin
+
+# or
 npx create-react-app my-app --template @intellective/unity-origin
+
 # or
 yarn create-react-app my-app --template @intellective/unity-origin
 ```
