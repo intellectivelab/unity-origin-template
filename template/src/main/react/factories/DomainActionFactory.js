@@ -2,7 +2,7 @@ import React from "react";
 
 import * as R from "ramda";
 
-import {DefaultActionFactory, DefaultActionMapper, TwoColumnsLayout} from '@intellective/core';
+import {DefaultActionFactory, DefaultActionMapper, DefaultFormSubmitHandlerMapper, TwoColumnsLayout} from '@intellective/core';
 
 const defaultSettings = {
 	fullScreen: true,
@@ -31,4 +31,6 @@ export default function DomainActionFactory(config = defaultSettings) {
 
 		return <ActionComponent {...otherProps} {...action} action={action}/>;
 	});
+
+	this.getFormSubmitHandler = DefaultFormSubmitHandlerMapper
 }
