@@ -1,4 +1,4 @@
-# Unity React Template
+# Unity Origin React Template
 
 The official Unity template for [Create React App](https://github.com/facebook/create-react-app)
 
