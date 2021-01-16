@@ -24,7 +24,8 @@
   },
   "devDependencies": {
     "@intellective/core": "2020.1.1",
-    "@intellective/unity-api-mocks": "^1.0.7",
+    "@intellective/analytics": "2021.1.0",
+    "@intellective/unity-api-mocks": "^1.0.9",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
