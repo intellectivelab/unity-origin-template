@@ -2,7 +2,8 @@ import React from 'react';
 
 import _url from "url";
 
-import {DefaultDashboardBuilder, DefaultThemeProvider, FactoryContextProvider, PerspectiveContainer, registerBuilder} from '@intellective/core';
+import {DefaultThemeProvider, FactoryContextProvider, PerspectiveContainer, registerBuilder} from '@intellective/core';
+import {DefaultDashboardBuilder} from "@intellective/analytics";
 
 import DomainActionFactory from "./factories/DomainActionFactory";
 import DomainComponentFactory from "./factories/DomainComponentFactory";
