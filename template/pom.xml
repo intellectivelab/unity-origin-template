@@ -14,7 +14,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<spring.boot.version>2.0.4.RELEASE</spring.boot.version>
+		<spring.boot.version>2.2.2.RELEASE</spring.boot.version>
 		<spring-security.version>5.0.8.RELEASE</spring-security.version>
 		<spring.hateoas.version>0.25.1.RELEASE</spring.hateoas.version>
 		<spring.version>5.0.8.RELEASE</spring.version>
@@ -79,17 +79,93 @@
 							<webResources>
 								<resource>
 									<directory>${project.basedir}/build</directory>
-									<!-- it's not a good idea to filter binary files -->
 									<filtering>true</filtering>
 									<includes>
 										<include>**/*.html</include>
 										<include>**/*.js</include>
 										<include>**/*.css</include>
 										<include>**/*.map</include>
+										<include>**/*.json</include>
+									</includes>
+								</resource>
+								<resource>
+									<directory>${project.basedir}/build</directory>
+									<filtering>false</filtering>
+									<includes>
+										<include>**/*.svg</include>
+										<include>**/*.png</include>
+										<include>**/*.pdf</include>
 									</includes>
 								</resource>
 							</webResources>
 						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+						<version>3.2.0</version>
+						<configuration>
+							<classesDirectory>${project.basedir}/build-unity</classesDirectory>
+							<classifier>embedded</classifier>
+							<archive>
+								<addMavenDescriptor>false</addMavenDescriptor>
+							</archive>
+							<includes>
+								<include>**/*.html</include>
+								<include>**/*.js</include>
+								<include>**/*.css</include>
+								<include>**/*.map</include>
+								<include>**/*.svg</include>
+								<include>**/*.png</include>
+								<include>**/*.json</include>
+								<include>**/*.pdf</include>
+							</includes>
+						</configuration>
+						<executions>
+							<execution>
+								<id>make-a-jar</id>
+								<phase>package</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>skip-react</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.github.eirslett</groupId>
+						<artifactId>frontend-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>install node and npm</id>
+								<phase>none</phase>
+							</execution>
+
+							<execution>
+								<id>yarn install</id>
+								<phase>none</phase>
+							</execution>
+
+							<execution>
+								<id>yarn run build</id>
+								<phase>none</phase>
+							</execution>
+
+							<execution>
+								<id>yarn run build-unity</id>
+								<phase>none</phase>
+							</execution>
+						</executions>
+
 					</plugin>
 				</plugins>
 			</build>
@@ -101,7 +177,7 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
-				<version>2.2.2.RELEASE</version>
+				<version>${spring.boot.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -116,34 +192,6 @@
 	</dependencyManagement>
 
 	<dependencies>
-		<dependency>
-			<groupId>com.intellective.unity</groupId>
-			<artifactId>unity-commons</artifactId>
-			<version>1.2.1</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-configuration</groupId>
-					<artifactId>commons-configuration</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.jfairy</groupId>
-					<artifactId>jfairy</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.protobuf</groupId>
-					<artifactId>protobuf-java</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.commons</groupId>
-					<artifactId>commons-dbcp2</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20210307</version>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -160,26 +208,33 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-oauth2</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security.oauth.boot</groupId>
+			<artifactId>spring-security-oauth2-autoconfigure</artifactId>
+			<version>${spring.boot.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>io.vavr</groupId>
+			<artifactId>vavr</artifactId>
+			<version>0.10.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
-	<repositories>
-		<repository>
-			<id>maven.intellective.com</id>
-			<url>https://maven.intellective.com/repository/maven-public/</url>
-			<releases>
-				<enabled>true</enabled>
-				<checksumPolicy>fail</checksumPolicy>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>always</updatePolicy>
-				<checksumPolicy>fail</checksumPolicy>
-			</snapshots>
-		</repository>
-	</repositories>
-
 	<build>
-		<finalName>unity-app-${project.version}</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -215,8 +270,8 @@
 							<goal>install-node-and-yarn</goal>
 						</goals>
 						<configuration>
-							<nodeVersion>v12.18.3</nodeVersion>
-							<yarnVersion>v1.22.4</yarnVersion>
+							<nodeVersion>v14.15.0</nodeVersion>
+							<yarnVersion>v1.22.10</yarnVersion>
 						</configuration>
 					</execution>
 
@@ -231,7 +286,7 @@
 					</execution>
 
 					<execution>
-						<id>npm run build</id>
+						<id>yarn run build</id>
 						<goals>
 							<goal>yarn</goal>
 						</goals>
@@ -241,7 +296,7 @@
 					</execution>
 
 					<execution>
-						<id>npm run build-unity</id>
+						<id>yarn run build-unity</id>
 						<goals>
 							<goal>yarn</goal>
 						</goals>
@@ -263,12 +318,22 @@
 					<webResources>
 						<resource>
 							<directory>${project.basedir}/build</directory>
-							<!-- it's not a good idea to filter binary files -->
 							<filtering>true</filtering>
 							<includes>
 								<include>**/*.html</include>
 								<include>**/*.js</include>
 								<include>**/*.css</include>
+								<include>**/*.map</include>
+								<include>**/*.json</include>
+							</includes>
+						</resource>
+						<resource>
+							<directory>${project.basedir}/build</directory>
+							<filtering>false</filtering>
+							<includes>
+								<include>**/*.svg</include>
+								<include>**/*.png</include>
+								<include>**/*.pdf</include>
 							</includes>
 						</resource>
 					</webResources>
@@ -288,6 +353,10 @@
 						<include>**/*.html</include>
 						<include>**/*.js</include>
 						<include>**/*.css</include>
+						<include>**/*.svg</include>
+						<include>**/*.png</include>
+						<include>**/*.json</include>
+						<include>**/*.pdf</include>
 					</includes>
 				</configuration>
 				<executions>
