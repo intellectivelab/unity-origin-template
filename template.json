@@ -3,20 +3,42 @@
     "scripts": {
       "start": "react-app-rewired start",
       "build": "react-app-rewired --max-old-space-size=8000 build",
-      "build-unity": "set BUILD_TARGET=unity& set PUBLIC_URL=./& react-app-rewired --max-old-space-size=8000 build",
       "test": "react-app-rewired test",
       "mocks": "node mocks/index.js"
     },
     "dependencies": {
-      "@intellective/core": "2020.1.1",
-      "@intellective/analytics": "2021.1.0",
-      "@material-ui/core": "^4.11.2",
+      "@intellective/core": "2021.1.0-alpha.74",
+      "@intellective/analytics": "2021.1.0-alpha.5",
+      "@material-ui/core": "^4.11.3",
       "@material-ui/icons": "^4.11.2",
       "@material-ui/lab": "^4.0.0-alpha.57",
-      "@material-ui/styles": "^4.11.2",
+      "@material-ui/pickers": "^3.3.10",
+      "@material-ui/styles": "^4.11.3",
+      "mdi-react": "^7.5.0",
       "ramda": "^0.27.1",
-      "react-redux": "^7.2.1",
+      "react": "^17.0.2",
+      "react-dom": "^17.0.2",
+      "react-is": "^17.0.2",
+      "react-redux": "^7.2.3",
+      "react-router-dom": "^5.2.0",
+      "react-scripts": "^4.0.3",
       "react-app-rewired": "^2.1.6"
+    },
+    "eslintConfig": {
+      "extends": "react-app"
+    },
+    "browserslist": {
+      "production": [
+        "> 1%",
+        "last 2 versions",
+        "not dead",
+        "not op_mini all"
+      ],
+      "development": [
+        "last 1 chrome version",
+        "last 1 firefox version",
+        "last 1 safari version"
+      ]
     },
     "babel": {
       "presets": [
