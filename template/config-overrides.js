@@ -1,5 +1,7 @@
 const path = require('path');
 
+const rewireCompressionPlugin = require('react-app-rewire-compression-plugin');
+
 module.exports = {
 	paths: function (paths, env) {
 		paths.appSrc = path.resolve(__dirname, 'src/main/react');
@@ -11,4 +13,16 @@ module.exports = {
 
 		return paths;
 	},
+
+	webpack: function(config, env) {
+		if (env === 'production') {
+			// Compress generated js files
+			config = rewireCompressionPlugin(config, env, {
+				test: /\.js(\?.*)?$/i,
+				cache: true
+			})
+
+		}
+		return config
+	}
 };
