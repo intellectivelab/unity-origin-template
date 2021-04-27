@@ -5,12 +5,12 @@ import _url from "url";
 import {DefaultThemeProvider, FactoryContextProvider, PerspectiveContainer, registerBuilder} from '@intellective/core';
 import {DefaultDashboardBuilder} from "@intellective/analytics";
 
-import DomainActionFactory from "./factories/DomainActionFactory";
-import DomainComponentFactory from "./factories/DomainComponentFactory";
-import DomainFormFieldFactory from "./factories/FormField/DomainFormFieldFactory";
+import DomainActionFactory from "./domain/factories/DomainActionFactory";
+import DomainComponentFactory from "./domain/factories/DomainComponentFactory";
+import DomainFormFieldFactory from "./domain/factories/DomainFormFieldFactory";
 
-import DomainPalettes from "./themes/DomainPalettes";
-import DomainThemeBuilder from "./themes/DomainThemeBuilder";
+import DomainPalettes from "./domain/themes/DomainPalettes";
+import DomainThemeBuilder from "./domain/themes/DomainThemeBuilder";
 
 const App = () => {
 	registerBuilder('dashboard', DefaultDashboardBuilder);
