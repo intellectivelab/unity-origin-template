@@ -32,5 +32,5 @@ export default function DomainActionFactory(config = defaultSettings) {
 		return <ActionComponent {...otherProps} {...action} action={action}/>;
 	});
 
-	this.getFormSubmitHandler = DefaultFormSubmitHandlerMapper
+	this.getFormSubmitHandler = DefaultFormSubmitHandlerMapper;
 }
