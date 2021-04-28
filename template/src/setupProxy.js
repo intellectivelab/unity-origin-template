@@ -14,12 +14,12 @@ module.exports = function (app) {
 	 * Note: the .env file should have the same port as the running instance of Unity.
 	 * For example, if the Unity application is running on 9081 port, the .evn file should have 9081.
 	 */
-	/*app.use(createProxyMiddleware(filter, {
-		target: 'http://172.31.20.119:9081/react-demo',
+	app.use(createProxyMiddleware(filter, {
+		target: 'http://dev-host:9081/unity',
 		pathRewrite: {
-			'^/react-demo': '',
+			'^/unity': '',
 			'^/api': '/public/api'
 		},
 		auth: "p8admin:V3ga123456"
-	}));*/
+	}));
 };
