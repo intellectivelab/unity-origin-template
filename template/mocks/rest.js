@@ -26,8 +26,8 @@ module.exports = function (app) {
 
 	app.post('/api/gateway/link/generate/:resourceName/:resourceType/:resourceId', (req, res) => {
 
-		let inputData = req.params.resourceName + '/' + req.params.resourceType
-			+ '/' + req.params.resourceId;
+		let inputData = req.params.resourceName + '/' + req.params.resourceType + '/' + req.params.resourceId;
+
 		if (req.body.users && req.body.users.length > 0) {
 			inputData += '&users=' + req.body.users;
 		}
@@ -43,7 +43,8 @@ module.exports = function (app) {
 		encrypted += cipher.final('hex');
 
 		res.send({
-			content: req.protocol + '://' + req.get('host') + "/api/shared/open?hash=" + encrypted
+			context: "",
+			path: "/api/shared/open?hash=" + encrypted
 		});
 	});
 
