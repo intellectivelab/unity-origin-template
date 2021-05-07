@@ -42,7 +42,7 @@ module.exports = {
         "semi": "error",
         "no-eq-null": "error",
 
-        "implicit-arrow-linebreak": "warn",
-        "no-unused-vars": "warn"
+        "implicit-arrow-linebreak": "off",
+        "no-unused-vars": "off"
     }
 };
