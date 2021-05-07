@@ -1,7 +1,7 @@
 {
   "name": "@intellective/cra-template-unity-origin",
   "main": "template.json",
-  "version": "2021.1.0-alpha.6",
+  "version": "2021.1.0-alpha.7",
   "description": "The base template for Unity React apps",
   "author": {
     "name": "Intellective",
