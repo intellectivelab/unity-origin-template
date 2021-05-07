@@ -12,16 +12,21 @@ const selectorsApi = require("./api/selectors/selectorsApi");
 
 const domainConfig = require("./config");
 
-const config = R.mergeRight(unityApiMocks.defaultConfig, domainConfig);
+const config = R.mergeDeepRight(unityApiMocks.defaultConfig, domainConfig);
 
 const documents = require("./api/documents/data/data");
 
+const fileTypes = R.compose(R.uniq, R.pluck('fileType'))(documents);
+const users = R.compose(R.take(20), R.pluck('modifiedBy'))(documents);
+
 module.exports = function (app) {
 	unityApiMocks.configApi(app, config);
+	unityApiMocks.casesApi(app, config);
+	unityApiMocks.foldersApi(app, config);
+	unityApiMocks.usersApi(app, config);
+	unityApiMocks.userSettings(app, config);
 
-	const fileTypes = R.compose(R.uniq, R.pluck('fileType'))(documents);
-	const users = R.compose(R.take(20), R.pluck('modifiedBy'))(documents);
-
+	//register domain API
 	const data = {users, fileTypes};
 
 	documentsApi(app, config, data);

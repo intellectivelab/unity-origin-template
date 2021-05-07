@@ -7,13 +7,13 @@
       "mocks": "node mocks/index.js"
     },
     "dependencies": {
-      "@intellective/core": "2021.1.0-alpha.74",
-      "@intellective/analytics": "2021.1.0-alpha.5",
-      "@material-ui/core": "^4.11.3",
+      "@intellective/core": "2021.1.0-alpha.84",
+      "@intellective/analytics": "2021.1.0-alpha.14",
+      "@material-ui/core": "^4.11.4",
       "@material-ui/icons": "^4.11.2",
-      "@material-ui/lab": "^4.0.0-alpha.57",
+      "@material-ui/lab": "^4.0.0-alpha.58",
       "@material-ui/pickers": "^3.3.10",
-      "@material-ui/styles": "^4.11.3",
+      "@material-ui/styles": "^4.11.4",
       "mdi-react": "^7.5.0",
       "ramda": "^0.27.1",
       "react": "^17.0.2",
