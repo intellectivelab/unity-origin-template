@@ -12,7 +12,11 @@ const selectorsApi = require("./api/selectors/selectorsApi");
 
 const domainConfig = require("./config");
 
-const config = R.mergeDeepRight(unityApiMocks.defaultConfig, domainConfig);
+const shouldConcat = R.anyPass([R.equals('actions'), R.equals('selectors')]);
+
+const concatValues = (k, l, r) => shouldConcat(k) ? R.concat(l, r) : r
+
+const config = R.mergeDeepWithKey(concatValues, unityApiMocks.defaultConfig, domainConfig);
 
 const documents = require("./api/documents/data/data");
 
